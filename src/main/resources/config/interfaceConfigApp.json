@@ -58,7 +58,7 @@
 		  "options":
 			[
 				{
-					"label": "RFC1 Mostrar dinero recolectado de cada sucursal en rango de tiempo y ano corrido CAMBIAR EL ANOOOO",
+					"label": "RFC1 Mostrar dinero recolectado de cada sucursal en rango de tiempo y year corrido",
 					"event": "dineroRecolectado"
 				},
 				{
@@ -112,7 +112,7 @@
 					"event": "mostrarArqRef"
 				},
 				{
-					"label": "Javadoc Parranderos",
+					"label": "Javadoc SuperAndes",
 					"event": "mostrarJavadoc"
 				}
 			]
