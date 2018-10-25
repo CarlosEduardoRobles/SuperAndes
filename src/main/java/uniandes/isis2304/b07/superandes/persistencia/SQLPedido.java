@@ -36,7 +36,6 @@ public class SQLPedido {
 
 	public long adicionarPedido(PersistenceManager pm, String idSucursal, String[] codigosProductos,
 			String nitProveedor, Timestamp fechaPrevista, double precioTotal) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }

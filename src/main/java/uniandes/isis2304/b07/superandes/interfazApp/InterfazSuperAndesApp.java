@@ -459,7 +459,6 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -40,7 +40,7 @@ public class SQLLegadaPedido {
 
 	public long registrarLlegadaPedido(PersistenceManager pm, long codigoPedido, long idSucursal,
 			Timestamp fechaLlegada, int cantidadProductos, String calidadProductos, String calificacion) {
-		Query q = pm.newQuery(SQL,"INSERT INTO "+pp.darTablaLlegadaPedido()+"(CODIGOPEDIDO,IDSUCURSAL,FECHAENTREGA,CANTIDADPRODUCTOS,CALIDADPRODUCTOS,CALIFICACION) VALUES (?, ?, ?, ?, ?, ?)");
+		Query q = pm.newQuery(SQL,"INSERT INTO "+ pp.darTablaLlegadaPedido() +"(CODIGOPEDIDO,IDSUCURSAL,FECHAENTREGA,CANTIDADPRODUCTOS,CALIDADPRODUCTOS,CALIFICACION) VALUES (?, ?, ?, ?, ?, ?)");
 		q.setParameters(codigoPedido,idSucursal,fechaLlegada,cantidadProductos,calidadProductos,calificacion);
 		return (long) q.executeUnique();
 

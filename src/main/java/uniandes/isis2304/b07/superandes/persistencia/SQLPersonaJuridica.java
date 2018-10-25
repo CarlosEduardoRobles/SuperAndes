@@ -33,11 +33,11 @@ public class SQLPersonaJuridica {
 		this.pp = pp;
 	}
 
-	public long adicionarPersonaJuridica(PersistenceManager pm, String documento, String numDocumento,
+	public long adicionarPersonaJuridica(PersistenceManager pm, String tipoDocumento, String numDocumento,
 			String direccion) {
 		
 		Query q = pm.newQuery(SQL, "INSERT INTO" + pp.darTablaPersonaJuridica()+"(TIPODOCUMENTO,NUMDOCUMENTO,DIRECCION) values (?,?,?)");
-		q.setParameters(documento,numDocumento,direccion);
+		q.setParameters(tipoDocumento,numDocumento,direccion);
 		return (long) q.executeUnique();
 	}
 

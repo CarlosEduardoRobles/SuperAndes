@@ -36,7 +36,7 @@ public class SQLVentaProducto {
 
 	public long adicionarVentaProducto(PersistenceManager pm, long numeroVenta, String codigoProducto, String cantidad) {
 
-		Query q = pm.newQuery(SQL, "INSERT INTO" + pp.darTablaVentaProducto()+"(NUMEROVENTA,CODIGOPRODUCTO,UNIDADES) values (?,?,?)");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaVentaProducto()+"(NUMEROVENTA,CODIGOPRODUCTO,UNIDADES) values (?,?,?)");
 		q.setParameters(numeroVenta,codigoProducto,cantidad);
 		return (long) q.executeUnique();
 	}

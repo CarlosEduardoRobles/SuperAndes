@@ -37,9 +37,9 @@ import uniandes.isis2304.b07.superandes.negocio.Venta;
 
 
 public class PersistenciaSuperAndes {
-	/* ****************************************************************
-	 * 			Constantes
-	 *****************************************************************/
+	//------------------------------------------------------------------
+	//----------------------------Constantes----------------------------
+	//------------------------------------------------------------------
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
@@ -50,9 +50,9 @@ public class PersistenciaSuperAndes {
 	 */
 	public final static String SQL = "javax.jdo.query.SQL";
 
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
+	//------------------------------------------------------------------
+	//-----------------------------Atributos----------------------------
+	//------------------------------------------------------------------
 	/**
 	 * Atributo privado que es el único objeto de la clase - Patrón SINGLETON
 	 */
@@ -68,254 +68,206 @@ public class PersistenciaSuperAndes {
 	 */
 	private List <String> tablas;
 
-
 	/**
 	 * Atributo para el acceso a las sentencias SQL propias a PersistenciaParranderos
 	 */
 	private SQLUtil sqlUtil;
 
-
-
+	//------------------------------------------------------------------
+	//----------Atributos para manejar los sql de las tablas------------
+	//------------------------------------------------------------------
 	/**
-	 * Atributos para manejar los sql de las tablas.
+	 * Atributo para el acceso a la tabla BODEGA de la BD.
 	 */
-
 	private SQLBodega sqlBodega;
 
+	/**
+	 * Atributo para el acceso a la tabla CATEGORIA de la BD.
+	 */
 	private SQLCategoria sqlCategoria;
 
+	/**
+	 * Atributo para el acceso a la tabla CATEGORIAPRODUCTO de la BD.
+	 */
 	private SQLCategoriaProducto sqlCategoriaProducto;
 
+	/**
+	 * Atributo para el acceso a la tabla CLIENTE de la BD.
+	 */
 	private SQLCliente sqlCliente;
 
+	/**
+	 * Atributo para el acceso a la tabla DESCPORCENTAJEPROMO de la BD.
+	 */
 	private SQLDescPorcentajePromo sqlDescPorcentajePromo;
 
+	/**
+	 * Atributo para el acceso a la tabla ESTANTE de la BD.
+	 */
 	private SQLEstante sqlEstante;
 
+	/**
+	 * Atributo para el acceso a la tabla FACTURA de la BD.
+	 */
 	private SQLFactura sqlFactura;
 
+	/**
+	 * Atributo para el acceso a la tabla LLEGADAPEDIDO de la BD.
+	 */
 	private SQLLegadaPedido sqlLegadaPedido;
 
+	/**
+	 * Atributo para el acceso a la tabla PAGUE1LLEVE2CONDESCPROMO de la BD.
+	 */
 	private SQLPague1Lleve2ConDescPromo sqlPague1Lleve2ConDescPromo;
 
+	/**
+	 * Atributo para el acceso a la tabla PAGUENUNIDADESLLEVEMPROMO de la BD.
+	 */
 	private SQLPagueNUnidadesLleveMPromo sqlPagueNUnidadesLleveMPromo;
 
+	/**
+	 * Atributo para el acceso a la tabla PAGUEXCANTIDADLLVEYPROMO de la BD.
+	 */
 	private SQLPagueXCantidadLleveYPromo sqlPagueXCantidadLleveYPromo ;
 
+	/**
+	 * Atributo para el acceso a la tabla PEDIDO de la BD.
+	 */
 	private SQLPedido sqlPedido;
 
+	/**
+	 * Atributo para el acceso a la tabla PERSONAJURIDICA de la BD.
+	 */
 	private SQLPersonaJuridica sqlPersonaJuridica;
 
+	/**
+	 * Atributo para el acceso a la tabla PRODUCTO de la BD.
+	 */
 	private SQLProducto sqlProducto;
 
+	/**
+	 * Atributo para el acceso a la tabla PRODUCTOPEDIDO de la BD.
+	 */
 	private SQLProductoPedido sqlProductoPedido;
 
+	/**
+	 * Atributo para el acceso a la tabla PRODUCTOPROMOCION de la BD.
+	 */
 	private SQLProductoPromocion sqlProductoPromocion;
 
+	/**
+	 * Atributo para el acceso a la tabla PRODUCTOPROVEEDOR de la BD.
+	 */
 	private SQLProductoProveedor sqlProductoProveedor;
 
+	/**
+	 * Atributo para el acceso a la tabla PRODUCTOSUCURSAL de la BD.
+	 */
 	private SQLProductoSucursal sqlProductoSucursal;
 
+	/**
+	 * Atributo para el acceso a la tabla PROMOCION de la BD.
+	 */
 	private SQLPromocion sqlPromocion;
 
+	/**
+	 * Atributo para el acceso a la tabla PROVEEDOR de la BD.
+	 */
 	private SQLProveedor sqlProveedor;
 
+	/**
+	 * Atributo para el acceso a la tabla RESTICCIONBODEGA de la BD.
+	 */
 	private SQLRestriccionBodega sqlRestriccionBodega;
 
+	/**
+	 * Atributo para el acceso a la tabla RESTRICCIONESTANTE de la BD.
+	 */
 	private SQLRestriccionEstante sqlRestriccionEstante;
 
+	/**
+	 * Atributo para el acceso a la tabla SUCURSAL de la BD.
+	 */
 	private SQLSucursal sqlSucursal;
 
+	/**
+	 * Atributo para el acceso a la tabla VENTA de la BD.
+	 */
 	private SQLVenta sqlVenta;
 
+	/**
+	 * Atributo para el acceso a la tabla VENTAPRODUCTO de la BD.
+	 */
 	private SQLVentaProducto sqlVentaProducto;
-
-
-
-
-	/* ****************************************************************
-	 * 			Métodos del MANEJADOR DE PERSISTENCIA
-	 *****************************************************************/
-
+	
+	//------------------------------------------------------------------
+	//--------------Métodos del MANEJADOR DE PERSISTENCIA---------------
+	//------------------------------------------------------------------
 	/**
 	 * Constructor privado con valores por defecto - Patrón SINGLETON
 	 */
 	private PersistenciaSuperAndes ()
 	{
 		pmf = JDOHelper.getPersistenceManagerFactory("SuperAndes");		
-		crearClasesSQL ();
-
-		// Define los nombres por defecto de las tablas de la base de datos
-
-
-		tablas = new LinkedList<String> ();
-		tablas.add ("SuperAndes_sequence");
-		tablas.add ("BODEGA");
-		tablas.add ("CATEGORIA");
-		tablas.add ("CATEGORIAPRODUCTO");
-		tablas.add ("CLIENTE");
-		tablas.add ("DESCPORCENTAJEPROMO");		
-		tablas.add ("ESTANTE");
-		tablas.add ("FACTURA");
-		tablas.add ("LLEGADAPEDIDO");
-		tablas.add ("PAGUE1LLEVE2CONDESCPROMO");
-		tablas.add ("PAGUENUNIDADESLLEVEMPROMO");		
-		tablas.add ("PAGUEXCANTIDADLLEVEYPROMO");
-		tablas.add ("PEDIDO");
-		tablas.add ("PERSONAJURIDICA");
-		tablas.add ("PRODUCTO");
-		tablas.add ("PRODUCTOPEDIDO");		
-		tablas.add ("PRODUCTOPROMOCION");
-		tablas.add ("PRODUCTOPROVEEDOR");
-		tablas.add ("PRODUCTOSUCURSAL");
-		tablas.add ("PROMOCION");
-		tablas.add ("PROVEEDOR");		
-		tablas.add ("RESTRICCIONBODEGA");
-		tablas.add ("RESTRICCIONESTANTE");
-		tablas.add ("SUCURSAL");
-		tablas.add ("VENTA");
-		tablas.add ("VENTAPRODUCTO");
+		crearClasesSQL ();		
 	}
 
-	public String darSeqParranderos()
-	{
-		return tablas.get (0);
-	}
+	/**
+	 * Retorna la cadena de caracteres con el nombre del secuenciador de parranderos.
+	 * @return La cadena de caracteres con el nombre del secuenciador de parranderos.
+	 */
+	public String darSeqSuperAndes ()	{ return "SuperAndes_sequence";	}
+	
+	public String darTablaBodega()	{ return "BODEGA"; }
 
-	public String darTablaBodega()
-	{
-		return "BODEGA";
-	}
+	public String darTablaCategoria()	{ return "CATEGORIA"; }
 
-	public String darTablaCategoria()
-	{
-		return tablas.get (2);
-	}
+	public String darTablaCategoriaProducto()	{ return "CATEGORIAPRODUCTO"; }
 
-	public String darTablaCategoriaProducto()
-	{
-		return tablas.get (3);
-	}
+	public String darTablaCliente()	{ return "CLIENTE"; }
 
+	public String darTablaDescPorcentajePromo()	{ return "DESCPORCENTAJEPROMO"; }
 
-	public String darTablaCliente()
-	{
-		return tablas.get (4);
-	}
+	public String darTablaEstante()	{ return "ESTANTE"; }
 
+	public String darTablaFactura()	{ return "FACTURA"; }
 
-	public String darTablaDescPorcentajePromo()
-	{
-		return "descporcentajepromo";
-	}
+	public String darTablaLlegadaPedido()	{ return "LLEGADAPEDIDO"; }
 
+	public String darTablaPague1Lleve2ConDescPromo()	{ return "PAGUE1LLEVE2CONDESCPROMO"; }
 
-	public String darTablaEstante()
-	{
-		return "ESTANTE";
-	}
+	public String darTablaPagueNUnidadesLleveMPromo()	{ return "PAGUENUNIDADESLLEVEMPROMO"; }
 
+	public String darTablaPagueXCantidadLleveYPromo()	{ return "PAGUEXCANTIDADLLEVEYPROMO"; }
 
-	public String darTablaFactura()
-	{
-		return tablas.get (7);
-	}
+	public String darTablaPedido()	{ return "PEDIDO"; }
 
+	public String darTablaPersonaJuridica()	{ return "PERSONAJURIDICA"; }
 
-	public String darTablaLlegadaPedido()
-	{
-		return "LLEGADAPEDIDO";
-	}
+	public String darTablaProducto()	{ return "PRODUCTO"; }
 
+	public String darTablaProductoPedido()	{ return "PRODUCTOPEDIDO"; }	
 
-	public String darTablaPague1Lleve2ConDescPromo()
-	{
-		return "pague1lleve2condescpromo";
-	}
+	public String darTablaProductoPromocion()	{ return "PRODUCTOPROMOCION"; }
 
-	public String darTablaPagueNUnidadesLleveMPromo()
-	{
-		return "PAGUENUNIDADESLLEVEMPROMO";
-	}
+	public String darTablaProductoProveedor()	{ return "PRODUCTOPROVEEDOR"; }
 
+	public String darTablaProductoSucursal()	{ return "PRODUCTOSUCURSAL"; }
 
-	public String darTablaPagueXCantidadLleveYPromo()
-	{
-		return "paguexcantidadlleveypromo";
-	}
+	public String darTablaPromocion()	{ return "PROMOCION"; }
 
-	public String darTablaPedido()
-	{
-		return tablas.get (12);
-	}
+	public String darTablaProveedor()	{ return "PROVEEDOR"; }
 
-	public String darTablaPersonaJuridica()
-	{
-		return tablas.get (13);
-	}
+	public String darTablaRestriccionBodega()	{ return "RESTRICCIONBODEGA"; }
 
-	public String darTablaProducto()
-	{
-		return tablas.get (14);
-	}
+	public String darTablaRestriccionEstante()	{ return "RESTRICCIONESTANTE"; }
 
-	public String darTablaProductoPedido()
-	{
-		return tablas.get (15);
-	}	
+	public String darTablaSucursal()	{ return "SUCURSAL"; }
 
-	public String darTablaProductoPromocion()
-	{
-		return "PRODUCTOPROMOCION";
-	}
+	public String darTablaVenta()	{ return "VENTA"; }
 
-	public String darTablaProductoProveedor()
-	{
-		return tablas.get (17);
-	}
-
-	public String darTablaProductoSucursal()
-	{
-		return tablas.get (18);
-	}
-
-	public String darTablaPromocion()
-	{
-		return "PROMOCION";
-	}
-
-	public String darTablaProveedor()
-	{
-		return tablas.get (20);
-	}
-
-	public String darTablaRestriccionBodega()
-	{
-		return tablas.get (21);
-	}
-
-	public String darTablaRestriccionEstante()
-	{
-		return tablas.get (22);
-	}
-
-	public String darTablaSucursal()
-	{
-		return "SUCURSAL";
-	}
-
-	public String darTablaVenta()
-	{
-		return tablas.get (24);
-	}
-
-	public String darTablaVentaProducto()
-	{
-		return tablas.get (25);
-	}
-
-
-
+	public String darTablaVentaProducto()	{ return "VENTAPRODUCTO"; }
 
 	/**
 	 * Constructor privado, que recibe los nombres de las tablas en un objeto Json - Patrón SINGLETON
@@ -336,10 +288,9 @@ public class PersistenciaSuperAndes {
 	 */
 	public static PersistenciaSuperAndes getInstance ()
 	{
-		if (instance == null)
-		{
+		if (instance == null)		
 			instance = new PersistenciaSuperAndes ();
-		}
+		
 		return instance;
 	}
 
@@ -350,10 +301,9 @@ public class PersistenciaSuperAndes {
 	 */
 	public static PersistenciaSuperAndes getInstance (JsonObject tableConfig)
 	{
-		if (instance == null)
-		{
+		if (instance == null)		
 			instance = new PersistenciaSuperAndes (tableConfig);
-		}
+		
 		return instance;
 	}
 
@@ -376,10 +326,8 @@ public class PersistenciaSuperAndes {
 		JsonArray nombres = tableConfig.getAsJsonArray("tablas") ;
 
 		List <String> resp = new LinkedList <String> ();
-		for (JsonElement nom : nombres)
-		{
-			resp.add (nom.getAsString ());
-		}
+		for (JsonElement nom : nombres)		
+			resp.add (nom.getAsString ());		
 
 		return resp;
 	}
@@ -389,51 +337,19 @@ public class PersistenciaSuperAndes {
 	 */
 	private void crearClasesSQL ()
 	{
-		sqlBodega = new SQLBodega(this);
-		sqlCategoria = new SQLCategoria(this);
-		sqlCategoriaProducto = new SQLCategoriaProducto(this);
-		sqlCliente = new SQLCliente(this);
-		sqlDescPorcentajePromo = new SQLDescPorcentajePromo(this);
+		sqlBodega = new SQLBodega(this);	sqlCategoria = new SQLCategoria(this);	sqlCategoriaProducto = new SQLCategoriaProducto(this);
+		sqlCliente = new SQLCliente(this);	sqlDescPorcentajePromo = new SQLDescPorcentajePromo(this);	sqlEstante = new SQLEstante(this);
+		sqlFactura = new SQLFactura(this);	sqlLegadaPedido = new SQLLegadaPedido(this);	sqlPague1Lleve2ConDescPromo = new SQLPague1Lleve2ConDescPromo(this);
+		sqlPagueNUnidadesLleveMPromo = new SQLPagueNUnidadesLleveMPromo(this);	sqlProductoPromocion = new SQLProductoPromocion(this);
+		sqlSucursal=new SQLSucursal(this);	sqlPagueXCantidadLleveYPromo = new SQLPagueXCantidadLleveYPromo(this);	sqlPedido = new SQLPedido(this);
+		sqlPersonaJuridica = new SQLPersonaJuridica(this);	sqlProducto = new SQLProducto(this);	sqlProductoPedido = new SQLProductoPedido(this);
+		sqlProductoPromocion = new SQLProductoPromocion(this);	sqlProductoProveedor = new SQLProductoProveedor(this);	sqlProductoSucursal = new SQLProductoSucursal(this);
+		sqlPromocion = new SQLPromocion(this);	sqlProveedor = new SQLProveedor(this);	sqlRestriccionBodega = new SQLRestriccionBodega(this);		
+		sqlRestriccionEstante = new SQLRestriccionEstante(this);	sqlSucursal = new SQLSucursal(this);	sqlVenta = new SQLVenta(this);
+		sqlVentaProducto = new SQLVentaProducto(this);	sqlUtil = new SQLUtil(this);
 
-		sqlEstante = new SQLEstante(this);
-		sqlFactura = new SQLFactura(this);
-		sqlLegadaPedido = new SQLLegadaPedido(this);
-		sqlPague1Lleve2ConDescPromo = new SQLPague1Lleve2ConDescPromo(this);
-		sqlPagueNUnidadesLleveMPromo = new SQLPagueNUnidadesLleveMPromo(this);
-		sqlProductoPromocion = new SQLProductoPromocion(this);
-		sqlSucursal=new SQLSucursal(this);
-
-
-		sqlPagueXCantidadLleveYPromo = new SQLPagueXCantidadLleveYPromo(this);		
-		sqlPedido = new SQLPedido(this);
-		sqlPersonaJuridica = new SQLPersonaJuridica(this);
-		sqlProducto = new SQLProducto(this);
-		sqlProductoPedido = new SQLProductoPedido(this);
-
-		sqlProductoPromocion = new SQLProductoPromocion(this);		
-		sqlProductoProveedor = new SQLProductoProveedor(this);
-		sqlProductoSucursal = new SQLProductoSucursal(this);
-		sqlPromocion = new SQLPromocion(this);
-		sqlProveedor = new SQLProveedor(this);
-
-		sqlRestriccionBodega = new SQLRestriccionBodega(this);		
-		sqlRestriccionEstante = new SQLRestriccionEstante(this);
-		sqlSucursal = new SQLSucursal(this);
-		sqlVenta = new SQLVenta(this);
-		sqlVentaProducto = new SQLVentaProducto(this);		
-
-		sqlUtil = new SQLUtil(this);
-
-	}
-
-	/**
-	 * @return La cadena de caracteres con el nombre del secuenciador de parranderos
-	 */
-	public String darSeqSuperAndes ()
-	{
-		return tablas.get (0);
-	}
-
+	}	
+	
 	/* ****************************************************************
 	 * 			Requerimientos funcionales de modificacion
 	 *****************************************************************/

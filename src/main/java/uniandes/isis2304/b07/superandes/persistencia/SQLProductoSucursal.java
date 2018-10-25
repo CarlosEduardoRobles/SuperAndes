@@ -44,7 +44,7 @@ public class SQLProductoSucursal {
 				
 		for (int i = 0; i < productos.length; i++) {
 		
-			Query q = pm.newQuery(SQL, "SELECT PRECIOUNITARIO FROM " + pp.darTablaProductoPedido()+" WHERE IDSUCURSAL = "+sucursal+" AND CODIGOBARRAS = "+productos[i]);
+			Query q = pm.newQuery(SQL, "SELECT PRECIOUNITARIO FROM " + pp.darTablaProductoSucursal()+" WHERE IDSUCURSAL = "+sucursal+" AND CODIGOBARRAS = "+productos[i]);
 			precios[i] = Integer.toString((int) q.executeUnique());				
 			
 		}
