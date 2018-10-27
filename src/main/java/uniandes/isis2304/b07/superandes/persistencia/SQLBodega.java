@@ -33,10 +33,12 @@ public class SQLBodega {
 		this.pp = pp;
 	}
 
-	public long insertarBodega(PersistenceManager pm,long idBodega, long idSucursal, double capacidadVolumen, double capacidadTotalVolumen,
+	public long insertarBodega(PersistenceManager pm,long idSucursal, long id, long idTipoProducto, double actualCapacidadVolumen, double maximaCapacidadVolumen,
 			double capacidadPeso, double capacidadTotalPeso) {
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaBodega  () + "(idsucursal, idbodega,capacidadvolumen,capacidadtotalvolumen,capacidadpeso,capacidadtotalpeso) values (?, ?, ?, ?, ?, ?)");
-        q.setParameters(idSucursal, idBodega, capacidadVolumen, capacidadTotalVolumen, capacidadPeso, capacidadTotalPeso);
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaBodega  () + "(idSucursal, id, idTipoProducto, actualCapacidadVolumen, maximaCapacidadVolumen,"+
+    			"capacidadPeso, capacidadTotalPeso) values (?, ?, ?, ?, ?, ?)");
+        q.setParameters(idSucursal, id, idTipoProducto, actualCapacidadVolumen, maximaCapacidadVolumen,
+    			capacidadPeso, capacidadTotalPeso);
         return (long) q.executeUnique();
 	}
 }

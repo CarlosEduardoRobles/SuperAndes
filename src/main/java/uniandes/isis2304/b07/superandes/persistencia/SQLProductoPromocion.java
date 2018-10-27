@@ -23,7 +23,7 @@ public class SQLProductoPromocion {
 	private PersistenciaSuperAndes pp;
 
 	/* ****************************************************************
-	 * 			Métodos
+	 * 			Metodos
 	 *****************************************************************/
 	/**
 	 * Constructor
@@ -34,7 +34,7 @@ public class SQLProductoPromocion {
 		this.pp = pp;
 	}
 	
-	public long adicionarPromocion(PersistenceManager pm, String codigoProducto, String codigoPromocion)
+	public long adicionarProductosPromocion(PersistenceManager pm, String codigoProducto, String codigoPromocion)
 	{
 		Query q = pm.newQuery(SQL,"INSERT INTO "+pp.darTablaProductoPromocion()+"(CODIGOPROMOCION,CODIGOPRODUCTO) VALUES (?,?)");
 		q.setParameters(codigoPromocion,codigoProducto);

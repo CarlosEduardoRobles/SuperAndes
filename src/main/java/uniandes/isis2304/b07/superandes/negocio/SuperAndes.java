@@ -114,20 +114,13 @@ public class SuperAndes {
 		Sucursal sucursal = pp.registrarSucursal(nombre, segmentacion, tamanio, ciudad, direccion);
 		return sucursal;
 
-	}
-
-	public Bodega registrarBodega(long idSucursal, double capacidadVolumen, double capacidadTotalVolumen, double capacidadPeso, double capacidadTotalPeso)
-	{
-		log.info ("Registrando bodega en la sucursal: " + idSucursal);
-		return pp.registrarBodega(idSucursal, capacidadVolumen, capacidadTotalVolumen, capacidadPeso, capacidadTotalPeso);
-	}
+	}	
 
 	public Estante registrarEstante(long idSucursal, String nombre ,double capacidadVolumen, double capacidadTotalVolumen, double capacidadPeso, double capacidadTotalPeso)
 	{
 		log.info ("Registrando estante en la sucursal: " + idSucursal);
 		return pp.registrarEstante(idSucursal, capacidadVolumen, capacidadTotalVolumen, capacidadPeso, capacidadTotalPeso);
 	}
-
 
 	public PagueNUnidadesLleveMPromo registrarPromocionPagueNLleveM(String codigoProducto, Timestamp fechaVencimientoPromocion, int compraUnidades, int llevaUnidades)
 	{

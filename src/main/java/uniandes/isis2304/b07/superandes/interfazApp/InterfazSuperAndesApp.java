@@ -749,38 +749,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 
 	public void registrarBodega()
 	{
-		try 
-		{
-			long idSucursal = Long.parseLong(JOptionPane.showInputDialog (this, "Id de la sucursal?", "Registrar bodega", JOptionPane.QUESTION_MESSAGE));
-			double capacidadVolumen = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad actual en litros de la bodega?", "Registrar bodega", JOptionPane.QUESTION_MESSAGE));
-			double capacidadTotalVolumen = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad maxima en litros de la bodega?", "Registrar bodega", JOptionPane.QUESTION_MESSAGE));
-			double capacidadPeso = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad actual en kg de la bodega?", "Registrar bodega", JOptionPane.QUESTION_MESSAGE));
-			double capacidadTotalPeso = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad maxima en kg de la bodega?", "Registrar bodega", JOptionPane.QUESTION_MESSAGE));
-
-
-			if (idSucursal != 0 && capacidadVolumen != 0 && capacidadTotalVolumen != 0 && capacidadPeso != 0 && capacidadTotalPeso != 0)
-			{
-				VOBodega bodega =superAndes.registrarBodega(idSucursal, capacidadVolumen, capacidadTotalVolumen, capacidadPeso, capacidadTotalPeso);
-				if (bodega == null)
-				{
-					throw new Exception ("No se pudo registrar bodega en sucursal: " + idSucursal);
-				}
-				String resultado = "En registrarBodega\n\n";
-				resultado += "Bodega adicionada exitosamente: " + bodega;
-				resultado += "\n Operación terminada";
-				panelDatos.actualizarInterfaz(resultado);
-			}
-			else
-			{
-				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-			}
-		} 
-		catch (Exception e) 
-		{
-			//			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
+		//TODO Hacer metodo.
 	}
 
 	public void registrarEstante()
