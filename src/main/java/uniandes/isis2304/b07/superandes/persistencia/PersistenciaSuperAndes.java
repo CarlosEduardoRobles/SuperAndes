@@ -417,7 +417,7 @@ public class PersistenciaSuperAndes {
 		}
 	}
 
-	public Cliente registrarCliente(String tipodocumento, String numDocumento, String nombre, String apellido, String correo)
+	public Cliente registrarCliente(String tipodocumento, String numDocumento, String nombre, String correo)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 
@@ -426,12 +426,12 @@ public class PersistenciaSuperAndes {
 		try {
 
 			tx.begin();
-			long tuplasInsertadas = sqlCliente.adicionarCliente(pm, tipodocumento, numDocumento, nombre, apellido, correo);
+			long tuplasInsertadas = sqlCliente.adicionarCliente(pm, tipodocumento, numDocumento, nombre, correo);
 			tx.commit();
 
 			log.trace ("Inserción de cliente: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
 
-			return new Cliente(tipodocumento, numDocumento, nombre, apellido, correo);
+			return new Cliente(tipodocumento, numDocumento, nombre, correo);
 
 		} catch (Exception e) {
 

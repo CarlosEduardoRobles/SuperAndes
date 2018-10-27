@@ -138,7 +138,6 @@ CREATE TABLE Cliente
     numDocumento VARCHAR(20) NOT NULL,
     nombre VARCHAR(20),
     correo VARCHAR(20),
-    apellido VARCHAR(20),
     CONSTRAINT cliente_pk PRIMARY KEY(tipoDocumento, numDocumento)
 );
 
@@ -155,7 +154,9 @@ CREATE TABLE Venta
     numeroVenta INTEGER NOT NULL,
     tipoDocCliente VARCHAR(20) NOT NULL,
     numDocCliente VARCHAR(20) NOT NULL,
-    totalVenta INTEGER,
+    idSucursal INTEGER NOT NULL,
+    fechaVenta DATE,
+    totalVenta INTEGER,    
     CONSTRAINT venta_pk PRIMARY KEY(numeroVenta)
 );
 
@@ -227,14 +228,6 @@ CREATE TABLE Pague1Lleve2ConDescPromo
     CONSTRAINT pague1lleve2condescpromo_pk PRIMARY KEY(codigoPromo)
 );
 
-CREATE TABLE Factura
-(
-    numeroFactura INTEGER NOT NULL,
-    totalImpuestos INTEGER,
-    total INTEGER,
-    CONSTRAINT factura_pk PRIMARY KEY(numeroFactura)
-);
-
 
 -- Crear llaves foraneas
 
@@ -259,11 +252,6 @@ ALTER TABLE Pedido
 ALTER TABLE Estante
     ADD FOREIGN KEY (idProducto)
     REFERENCES Producto(codigoDeBarras)
-;
-
-ALTER TABLE Factura
-    ADD    FOREIGN KEY (numeroFactura)
-    REFERENCES Venta(numeroVenta)
 ;
     
 ALTER TABLE VentaProducto
@@ -415,6 +403,11 @@ ALTER TABLE LlegadaPedido
 ALTER TABLE Venta
     ADD    FOREIGN KEY (tipoDocCliente, numDocCliente)
     REFERENCES Cliente(tipoDocumento, numDocumento)
+;        
+
+ALTER TABLE Venta
+    ADD    FOREIGN KEY (idSucursal)
+    REFERENCES Sucursal(idSucursal)
 ;        
 
 -- Restricciones 

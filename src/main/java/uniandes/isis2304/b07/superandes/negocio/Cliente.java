@@ -1,12 +1,12 @@
 package uniandes.isis2304.b07.superandes.negocio;
 
-//TODO ¿Es necesario usar el nombre y apellido? Puede solo usarse uno como ambos.
+
 public class Cliente  implements VOCliente
 {
 	//-----------------------------------------------------------
 	//-------------------------Atributos-------------------------
 	//-----------------------------------------------------------		
-	private String tipoDocumento, numDocumento, nombre, apellido, correo;
+	private String tipoDocumento, numDocumento, nombre, correo;
 
 	//-----------------------------------------------------------
 	//-----------------------Constructores-----------------------
@@ -19,7 +19,6 @@ public class Cliente  implements VOCliente
 		this.tipoDocumento = "";
 		this.numDocumento = "";
 		this.nombre = "";
-		this.apellido = "";
 		this.correo = "";
 	}	
 	
@@ -28,15 +27,13 @@ public class Cliente  implements VOCliente
 	 * @param tipoDocumento - Tipo de documento del cliente. 
 	 * @param numDocumento - Numero de documento del cliente.
 	 * @param nombre - Primer nombre del cliente.
-	 * @param apellido - Primer apellido del cliente.
 	 * @param correo - Correo del cliente.
 	 */
-	public Cliente(String tipoDocumento, String numDocumento, String nombre, String apellido, String correo) 
+	public Cliente(String tipoDocumento, String numDocumento, String nombre, String correo) 
 	{
 		this.tipoDocumento = tipoDocumento;
 		this.numDocumento = numDocumento;
 		this.nombre = nombre;
-		this.apellido = apellido;
 		this.correo = correo;
 	}
 	
@@ -65,15 +62,7 @@ public class Cliente  implements VOCliente
 	 * Asigna el primer nombre del cliente.
 	 * @param nombre - el primer nombre del cliente.
 	 */
-	public void setNombre(String nombre) { this.nombre = nombre; }
-
-	public String getApellido() { return apellido; }
-
-	/**
-	 * Asigna el primer apellido del cliente.
-	 * @param apellido - el primer apellido del cliente.
-	 */
-	public void setApellido(String apellido) { this.apellido = apellido; }
+	public void setNombre(String nombre) { this.nombre = nombre; }	
 
 	public String getCorreo() {	return correo; }
 
@@ -87,7 +76,7 @@ public class Cliente  implements VOCliente
 	public String toString() 
 	{
 		return "Cliente [tipoDocumento=" + tipoDocumento + ", numDocumento=" + numDocumento + ", nombre=" + nombre
-				+ ", apellido=" + apellido + ", correo=" + correo + "]";
+				+ ", correo=" + correo + "]";
 	}
 	
 		
