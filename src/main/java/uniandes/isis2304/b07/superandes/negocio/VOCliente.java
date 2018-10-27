@@ -26,12 +26,6 @@ public interface VOCliente
 	public String getNombre();
 	
 	/**
-	 * Devuelve el primer apellido del cliente.
-	 * @return el primer apellido del cliente.
-	 */
-	public String getApellido();
-	
-	/**
 	 * Devuelve el correo del cliente.
 	 * @return el correo del cliente.
 	 */

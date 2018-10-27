@@ -620,18 +620,16 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 
 				String nombre = JOptionPane.showInputDialog (this, "Inserte el nombre", "Agregar cliente", JOptionPane.QUESTION_MESSAGE);
 
-				String apellido = JOptionPane.showInputDialog (this, "Inserte el apellido", "Agregar cliente", JOptionPane.QUESTION_MESSAGE);
-
 				String correo = JOptionPane.showInputDialog (this, "Inserte el correo", "Agregar cliente", JOptionPane.QUESTION_MESSAGE);
 
 
-				if(documento != null && numDocumento != null && nombre != null && apellido != null && correo != null){
+				if(documento != null && numDocumento != null && nombre != null && correo != null){
 
-					Cliente cliente = superAndes.registrarCliente(documento, numDocumento, nombre, apellido, correo);
+					Cliente cliente = superAndes.registrarCliente(documento, numDocumento, nombre, correo);
 
 					if (cliente == null)
 					{
-						throw new Exception ("No se pudo crear el cliente: " + nombre+" "+apellido);
+						throw new Exception ("No se pudo crear el cliente: " + nombre);
 					}	
 
 					String resultado = "En registrarCliente\n\n";
@@ -667,21 +665,19 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 
 				String nombre = JOptionPane.showInputDialog (this, "Inserte el nombre de la empresa", "Agregar cliente", JOptionPane.QUESTION_MESSAGE);
 
-				String apellido = JOptionPane.showInputDialog (this, "Inserte el tipo de sociedad de la empresa", "Agregar cliente", JOptionPane.QUESTION_MESSAGE);
-
 				String correo = JOptionPane.showInputDialog (this, "Inserte el correo", "Agregar cliente", JOptionPane.QUESTION_MESSAGE);
 
 				String direccion = JOptionPane.showInputDialog (this, "Inserte la direccion", "Agregar cliente", JOptionPane.QUESTION_MESSAGE);
 
-				if(documento != null && numDocumento != null && nombre != null && apellido != null && correo != null){
+				if(documento != null && numDocumento != null && nombre != null && correo != null){
 
-					Cliente cliente = superAndes.registrarCliente(documento, numDocumento, nombre, apellido, correo);
+					Cliente cliente = superAndes.registrarCliente(documento, numDocumento, nombre, correo);
 
 					PersonaJuridica cl = superAndes.registrarPersonaJuridica(documento, numDocumento, direccion);
 
 					if (cliente == null)
 					{
-						throw new Exception ("No se pudo crear el cliente: " + nombre+" "+apellido);
+						throw new Exception ("No se pudo crear el cliente: " + nombre);
 					}	
 
 					String resultado = "En registrarCliente\n\n";
