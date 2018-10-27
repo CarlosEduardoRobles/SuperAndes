@@ -1,6 +1,7 @@
 package uniandes.isis2304.b07.superandes.persistencia;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -37,7 +38,7 @@ public class SQLVenta {
 	}
 
 	public long adicionarVenta(PersistenceManager pm, String sucursal, long numeroVenta, String documento,
-			String documento2, double precioTotal, Timestamp fecha) {
+			String documento2, double precioTotal, Date fecha) {
 		
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaVenta()+"(NUMEROVENTA,TIPODOCCLIENTE,NUMDOCCLIENTE,TOTALVENTA,FECHAVENTA,IDSUCURSAL) values (?,?,?,?,?,?)");
 		q.setParameters(numeroVenta, documento, documento2, precioTotal, fecha, sucursal);

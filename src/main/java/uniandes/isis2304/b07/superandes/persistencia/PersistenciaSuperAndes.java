@@ -1,6 +1,7 @@
 package uniandes.isis2304.b07.superandes.persistencia;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -820,7 +821,7 @@ public class PersistenciaSuperAndes {
 	}
 
 	public Venta registrarVenta(String sucursal, String tipodocumento, String documento, String[] codigosProductos,
-			String[] cantidad, String[] precios, double precioTotal, Timestamp fecha) {
+			String[] cantidad, String[] precios, double precioTotal, Date fecha) {
 
 		PersistenceManager pm = pmf.getPersistenceManager();
 

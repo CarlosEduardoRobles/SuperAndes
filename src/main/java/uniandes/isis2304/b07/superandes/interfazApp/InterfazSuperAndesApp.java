@@ -599,7 +599,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 		}
 	}
 
-	public void registrarCliente()
+	public void registrarClientes()
 	{
 		String[] options1 = {"1. Persona natural","2. Persona juridica"};
 
@@ -989,8 +989,15 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 
 			String nitProveedor = JOptionPane.showInputDialog (this, "Nit del proveedor?", "Registrar pedido", JOptionPane.QUESTION_MESSAGE);
 			String idSucursal = JOptionPane.showInputDialog (this, "Id de la sucursal?", "Registrar pedido", JOptionPane.QUESTION_MESSAGE);
-			long fecha = Long.parseLong(JOptionPane.showInputDialog (this, "Fecha prevista de llegada", "Registrar pedido", JOptionPane.QUESTION_MESSAGE));
-			Timestamp fechaPrevista = new Timestamp(fecha);
+
+
+			
+			String fecha = JOptionPane.showInputDialog (this, "Fecha de llegada del pedido (dd/mm/yyyy)", "Registrar pedido", JOptionPane.QUESTION_MESSAGE);
+			SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+			Date d = dateformat.parse(fecha);
+			Timestamp fechaPrevista = new Timestamp(d.getTime());					
+			
+			
 			String[] codigosProductos = (JOptionPane.showInputDialog(this,"Ingrese los codigos de los productos a pedir separados por comas", "Registrar pedido", JOptionPane.QUESTION_MESSAGE)).split(",");
 			String[] cantidad = (JOptionPane.showInputDialog(this,"Ingrese la cantidad de productos a pedir separados por comas", "Registrar pedido", JOptionPane.QUESTION_MESSAGE)).split(",");
 			String[] precios = (JOptionPane.showInputDialog(this,"Ingrese los precios del total de la cantidad de cada producto, separados por comas", "Registrar pedido", JOptionPane.QUESTION_MESSAGE)).split(",");
@@ -1071,8 +1078,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 		try{
 			
 			String sucursal = JOptionPane.showInputDialog (this, "Digite el id de la sucursal", "Registrar venta", JOptionPane.QUESTION_MESSAGE);
-			long fecha1 = Long.parseLong(JOptionPane.showInputDialog (this, "Fecha  de la venta", "Registrar venta", JOptionPane.QUESTION_MESSAGE));
-			Timestamp fecha = new Timestamp(fecha1);
+			java.util.Date fecha = new Date();			
 			String[] options2 = {"TI", "Cedula", "Pasaporte","NIT"};
 			ImageIcon icon = new ImageIcon("https://image.flaticon.com/icons/png/512/16/16075.png");
 			String tipodocumento = (String) JOptionPane.showInputDialog(this, "Elija el tipo de documento","Registrar venta",JOptionPane.QUESTION_MESSAGE, icon ,options2, options2[1]);

@@ -2,6 +2,7 @@ package uniandes.isis2304.b07.superandes.negocio;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -169,7 +170,7 @@ public class SuperAndes {
 
 
 	public Venta registrarVenta(String sucursal, String tipodocumento, String documento, String[] codigosProductos,
-			String[] cantidad, String[] precios, double precioTotal, Timestamp fecha) {
+			String[] cantidad, String[] precios, double precioTotal, Date fecha) {
 
 		return pp.registrarVenta(sucursal, tipodocumento, documento, codigosProductos, cantidad, precios, precioTotal,fecha);
 
