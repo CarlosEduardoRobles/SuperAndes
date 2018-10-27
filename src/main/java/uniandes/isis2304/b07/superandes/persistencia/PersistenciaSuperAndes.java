@@ -518,33 +518,10 @@ public class PersistenciaSuperAndes {
 
 	}
 
-	public Bodega registrarBodega(long idSucursal, double capacidadVolumen, double capacidadTotalVolumen, double capacidadPeso, double capacidadTotalPeso)
+	public Bodega registrarBodega()
 	{
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try 
-		{
-			tx.begin();
-			long idBodega= nextval();	
-			long tuplasInsertadas = sqlBodega.insertarBodega(pm,idBodega,idSucursal,capacidadVolumen,capacidadTotalVolumen,capacidadPeso,capacidadTotalPeso);
-			tx.commit();
-			log.trace ("Inserción de bodega: " + idBodega + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Bodega(idSucursal, idBodega, 0, capacidadVolumen, capacidadTotalVolumen, capacidadPeso, capacidadTotalPeso);
-
-		} 
-		catch (Exception e) 
-		{
-			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			return null;
-		}
-		finally
-		{
-			if (tx.isActive())
-			{
-				tx.rollback();
-			}
-			pm.close();
-		}
+		//TODO Hacer metodo.
+		return null;
 	}
 
 	public Estante registrarEstante(long idSucursal, double capacidadVolumen, double capacidadTotalVolumen, double capacidadPeso, double capacidadTotalPeso)
