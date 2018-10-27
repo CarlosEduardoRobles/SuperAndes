@@ -206,6 +206,14 @@ CREATE TABLE PagueNUnidadesLleveMPromo
     CONSTRAINT paguenunidadesllevempromo_pk PRIMARY KEY(codigoPromo)
 );
 
+
+CREATE TABLE PaqueteDeProductosPromo
+(
+	codigoPromo VARCHAR(20) NOT NULL,
+	precioPromo INTEGER NOT NULL,
+	CONSTRAINT paquetedeproductospromo_pk PRIMARY KEY (codigoPromo)
+);
+
 CREATE TABLE PagueXCantidadLleveYPromo
 (
     codigoPromo VARCHAR(20) NOT NULL,
@@ -230,6 +238,11 @@ CREATE TABLE Pague1Lleve2ConDescPromo
 
 
 -- Crear llaves foraneas
+
+ALTER TABLE PaqueteDeProductosPromo
+	ADD FOREIGN KEY (codigoPromo)
+	REFERENCES Producto(codigoDeBarras)
+;
 
 ALTER TABLE Bodega
     ADD FOREIGN KEY (tipoproductoID)

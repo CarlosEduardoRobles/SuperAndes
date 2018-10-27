@@ -145,9 +145,9 @@ public class SuperAndes {
 	{
 		return pp.registrarPromocionPague1Lleve2doDesc(codigoProducto, fechaVencimientoPromocion, porcentaje);
 	}
-	public Promocion registrarPromocionPaqueteProductos(String codigoProducto, Timestamp fechaVencimientoPromocion, String producto2, double precioConjunto)
+	public Promocion registrarPromocionPaqueteProductos(Timestamp fechaVencimientoPromocion, String codigoProducto, int precioConjunto)
 	{
-		return pp.registrarPromocionPaqueteProductos(codigoProducto, fechaVencimientoPromocion, producto2, precioConjunto);
+		return pp.registrarPromocionPaqueteProductos(fechaVencimientoPromocion, codigoProducto, precioConjunto);
 	}
 
 

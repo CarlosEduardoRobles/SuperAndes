@@ -201,6 +201,8 @@ public class PersistenciaSuperAndes {
 	 * Atributo para el acceso a la tabla VENTAPRODUCTO de la BD.
 	 */
 	private SQLVentaProducto sqlVentaProducto;
+
+	private SQLPaqueteDeProductosPromo sqlPaqueteDeProductosPromo;
 	
 	//------------------------------------------------------------------
 	//--------------Métodos del MANEJADOR DE PERSISTENCIA---------------
@@ -241,6 +243,8 @@ public class PersistenciaSuperAndes {
 	public String darTablaPagueNUnidadesLleveMPromo()	{ return "PAGUENUNIDADESLLEVEMPROMO"; }
 
 	public String darTablaPagueXCantidadLleveYPromo()	{ return "PAGUEXCANTIDADLLEVEYPROMO"; }
+	
+	public String darTablaPaqueteDeProductosPromo() {return "PAQUETEDEPRODUCTOSPROMO";}
 
 	public String darTablaPedido()	{ return "PEDIDO"; }
 
@@ -347,7 +351,7 @@ public class PersistenciaSuperAndes {
 		sqlProductoPromocion = new SQLProductoPromocion(this);	sqlProductoProveedor = new SQLProductoProveedor(this);	sqlProductoSucursal = new SQLProductoSucursal(this);
 		sqlPromocion = new SQLPromocion(this);	sqlProveedor = new SQLProveedor(this);	sqlRestriccionBodega = new SQLRestriccionBodega(this);		
 		sqlRestriccionEstante = new SQLRestriccionEstante(this);	sqlSucursal = new SQLSucursal(this);	sqlVenta = new SQLVenta(this);
-		sqlVentaProducto = new SQLVentaProducto(this);	sqlUtil = new SQLUtil(this);
+		sqlVentaProducto = new SQLVentaProducto(this); sqlPaqueteDeProductosPromo = new SQLPaqueteDeProductosPromo(this); sqlUtil = new SQLUtil(this);
 
 	}	
 	
@@ -695,19 +699,18 @@ public class PersistenciaSuperAndes {
 			pm.close();
 		}
 	}
-	public Promocion registrarPromocionPaqueteProductos(String codigoProducto, Timestamp fechaVencimientoPromocion, String producto2, double precioConjunto)
+	public Promocion registrarPromocionPaqueteProductos( Timestamp fechaVencimientoPromocion, String codigoProducto, int precioConjunto)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
 		try 
 		{
 			tx.begin();
-			String codigoPromo= nextval()+"";
-			long tuplasInsertadas=sqlPromocion.adicionarPromocion(pm, codigoPromo, 1, fechaVencimientoPromocion);
-			//tuplasInsertadas+=sqlProductoPromocion.adicionarPromocion(pm,codigoProducto , codigoPromo);
+			long tuplasInsertadas=sqlPromocion.adicionarPromocion(pm, codigoProducto, 5, fechaVencimientoPromocion);
+			long tuplasInsertadas2 = sqlPaqueteDeProductosPromo.adicionarPaquete(pm, codigoProducto, precioConjunto);
 			tx.commit();
-			log.trace ("Inserción de promocion: " + codigoPromo + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Promocion(codigoPromo, fechaVencimientoPromocion);
+			log.trace ("Inserción de promocion: " + codigoProducto + ": " + tuplasInsertadas + " tuplas insertadas");
+			return new Promocion(codigoProducto, fechaVencimientoPromocion);
 		} 
 		catch (Exception e) 
 		{

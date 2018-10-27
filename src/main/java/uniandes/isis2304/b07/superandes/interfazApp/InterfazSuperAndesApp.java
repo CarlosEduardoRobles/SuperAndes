@@ -107,6 +107,10 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 	 */
 	private JMenuBar menuBar;
 
+	private String var;
+
+	private boolean confirmacion;
+
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -116,6 +120,10 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 	 */
 	public InterfazSuperAndesApp( )
 	{
+		var = new String();
+
+		confirmacion = false;
+
 		// Carga la configuración de la interfaz desde un archivo JSON
 		guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
 
@@ -563,6 +571,10 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 			String[] presentaciones=presentacion.split(",");
 			String[] marcas = marca.split(",");
 			String[] cantidadesS=cantidad.split(",");
+
+			if(confirmacion)
+				var = codigosBarras[0];	
+
 			int[] cantidades=new int[cantidadesS.length];
 			for (int i = 0; i < cantidades.length; i++) {
 				cantidades[i]=Integer.parseInt(cantidadesS[i]);
@@ -813,7 +825,8 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 	{
 		try 
 		{
-			String codigoProducto = JOptionPane.showInputDialog (this, "Codigo del producto al cual se le va a aplicar la promocion", "Registrar promocion", JOptionPane.QUESTION_MESSAGE);
+			String codigoProducto = "";
+
 			String fecha = JOptionPane.showInputDialog (this, "Fecha de vencimiento de la promocion (dd/mm/yyyy)", "Registrar promocion", JOptionPane.QUESTION_MESSAGE);
 			SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 			Date d = dateformat.parse(fecha);
@@ -824,7 +837,15 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 					+ "\n 3. Pague X cantidad lleve Y cantidad"
 					+ "\n 4. Pague 1 lleve el 2do con descuento de porcentaje"
 					+ "\n 5. Paquete de productos (cree antes el producto en conjunto)", "Registrar promocion", JOptionPane.QUESTION_MESSAGE);
+			
+			
+			if(!tipo.equals("5")){			
+				codigoProducto = JOptionPane.showInputDialog (this, "Codigo del producto al cual se le va a aplicar la promocion", "Registrar promocion", JOptionPane.QUESTION_MESSAGE);
+			}
+			
+			
 			switch (tipo) {
+			
 			//Pague N lleve M
 			case "1":
 				int pagaUnid = Integer.parseInt(JOptionPane.showInputDialog (this, "Numero de unidades que debe pagar el cliente?", "Registrar promocion", JOptionPane.QUESTION_MESSAGE));
@@ -908,14 +929,26 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 				}
 				break;
 				//Paguete descuentos
+
+
 			case "5":
-				String codigoProductoPaquete = "";
-				//codigoProductoPaquete=JOptionPane.showInputDialog (this, "Codigo del producto del paquete de la promocion", "Registrar promocion", JOptionPane.QUESTION_MESSAGE);
-				double precioConjunto = -1;
-				//precioConjunto=Double.parseDouble(JOptionPane.showInputDialog (this, "Precio en conjunto", "Registrar promocion", JOptionPane.QUESTION_MESSAGE));
-				if(precioConjunto !=0 && codigoProductoPaquete != null)
+
+				confirmacion = true;
+
+				JOptionPane.showMessageDialog(null, "Creacion del producto en conjunto");
+
+				registrarProductos();
+
+				String codigoProductoPaquete = var;				
+
+
+				int precioConjunto = Integer.parseInt(JOptionPane.showInputDialog (this, "Precio en conjunto", "Registrar promocion", JOptionPane.QUESTION_MESSAGE));	
+
+
+				if(precioConjunto != 0 && codigoProductoPaquete != null)
 				{
-					Promocion promocion = superAndes.registrarPromocionPaqueteProductos(codigoProducto, fechaVencimientoPromocion, codigoProductoPaquete, precioConjunto);
+					Promocion promocion = superAndes.registrarPromocionPaqueteProductos(fechaVencimientoPromocion, codigoProductoPaquete, precioConjunto);
+
 					if (promocion == null)
 					{
 						throw new Exception ("No se pudo registrar promocion en producto: " + codigoProducto);
@@ -957,7 +990,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 			SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 			Date d = dateformat.parse(fechaS);
 			Timestamp fecha = new Timestamp(d.getTime());
-			
+
 
 
 			if (fecha != null)
@@ -968,7 +1001,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 				resultado += "\n Operación terminada";
 				panelDatos.actualizarInterfaz(resultado);
 			}
-			
+
 		} 
 		catch (Exception e) 
 		{
@@ -987,13 +1020,13 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 			String idSucursal = JOptionPane.showInputDialog (this, "Id de la sucursal?", "Registrar pedido", JOptionPane.QUESTION_MESSAGE);
 
 
-			
+
 			String fecha = JOptionPane.showInputDialog (this, "Fecha de llegada del pedido (dd/mm/yyyy)", "Registrar pedido", JOptionPane.QUESTION_MESSAGE);
 			SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 			Date d = dateformat.parse(fecha);
 			Timestamp fechaPrevista = new Timestamp(d.getTime());					
-			
-			
+
+
 			String[] codigosProductos = (JOptionPane.showInputDialog(this,"Ingrese los codigos de los productos a pedir separados por comas", "Registrar pedido", JOptionPane.QUESTION_MESSAGE)).split(",");
 			String[] cantidad = (JOptionPane.showInputDialog(this,"Ingrese la cantidad de productos a pedir separados por comas", "Registrar pedido", JOptionPane.QUESTION_MESSAGE)).split(",");
 			String[] precios = (JOptionPane.showInputDialog(this,"Ingrese los precios del total de la cantidad de cada producto, separados por comas", "Registrar pedido", JOptionPane.QUESTION_MESSAGE)).split(",");
@@ -1072,7 +1105,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 	public void registrarVenta()
 	{
 		try{
-			
+
 			String sucursal = JOptionPane.showInputDialog (this, "Digite el id de la sucursal", "Registrar venta", JOptionPane.QUESTION_MESSAGE);
 			java.util.Date fecha = new Date();			
 			String[] options2 = {"TI", "Cedula", "Pasaporte","NIT"};
@@ -1100,7 +1133,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 				{
 					throw new Exception ("No se pudo registrar la venta en la sucursal: "+sucursal);
 				}
-				
+
 				String resultado = "En registrarVenta\n\n";
 				resultado += "Venta adicionada exitosamente: " + venta;
 				resultado += "\n Operacion terminada";
@@ -1163,17 +1196,17 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 	{
 		try 
 
-    	{
-    		long sucursal = Long.parseLong(JOptionPane.showInputDialog (this, "Id de la sucursal", "Indice de ocupacion sucursal", JOptionPane.QUESTION_MESSAGE));
-    		
-    		if (sucursal != 0)
-    		{
-    			List<Object []> lista=superAndes.indiceOcupacion(sucursal);
-    			String resultado = "En indiceOcupacion\n";
-    			resultado += "\n ID_ELEMENTO | TIPO | INDICE_VOLUMEN | INDICE_PESO ";
-    			if(lista!=null){
-    				for (Object[] objeto : lista) {
-    					resultado += "\n "+objeto;
+		{
+			long sucursal = Long.parseLong(JOptionPane.showInputDialog (this, "Id de la sucursal", "Indice de ocupacion sucursal", JOptionPane.QUESTION_MESSAGE));
+
+			if (sucursal != 0)
+			{
+				List<Object []> lista=superAndes.indiceOcupacion(sucursal);
+				String resultado = "En indiceOcupacion\n";
+				resultado += "\n ID_ELEMENTO | TIPO | INDICE_VOLUMEN | INDICE_PESO ";
+				if(lista!=null){
+					for (Object[] objeto : lista) {
+						resultado += "\n "+objeto;
 					}
 					resultado += "\n Operación terminada";
 					panelDatos.actualizarInterfaz(resultado);
