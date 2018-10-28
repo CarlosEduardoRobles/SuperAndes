@@ -51,7 +51,16 @@
 				{
 					"label": "RF11 Registrar una venta",
 					"event": "registrarVenta"
+				},
+				{
+					"label": "PRUEBA LISTAMIENTO PROVEEDORES",
+					"event": "registrarProductosAProveedor"
+				},
+				{
+					"label": "Ver productos",
+					"event": "verProductos"
 				}
+				
 			]
 		},
 		{ "menuTitle": "Requerimientos Funcionales de Consulta",

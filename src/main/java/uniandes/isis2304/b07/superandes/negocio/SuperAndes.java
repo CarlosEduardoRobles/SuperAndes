@@ -252,6 +252,21 @@ public class SuperAndes {
 	public void productosDeProveedor(String nit) {
 
 	}
+	
+	
+	//METODOS DE RETORNO
+
+
+	public List<Object[]> darElementos(String tabla) {
+		
+		return pp.darElementos(tabla);
+	}
+
+
+	public void registrarProductoAProveedor(String barCode, String nit, String calif, String prec) {
+
+		pp.registrarProductoAProveedor(barCode, nit, calif, prec);
+	}
 
 
 

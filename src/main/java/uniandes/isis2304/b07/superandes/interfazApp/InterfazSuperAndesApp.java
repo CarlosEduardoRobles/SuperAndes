@@ -1,7 +1,7 @@
 package uniandes.isis2304.b07.superandes.interfazApp;
 
 import java.awt.BorderLayout;
-
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -15,16 +15,20 @@ import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
@@ -34,6 +38,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
+
+import javafx.scene.control.cell.CheckBoxListCell;
 import uniandes.isis2304.b07.superandes.negocio.Cliente;
 import uniandes.isis2304.b07.superandes.negocio.IndiceOcupacion;
 import uniandes.isis2304.b07.superandes.negocio.PersonaJuridica;
@@ -51,6 +57,7 @@ import uniandes.isis2304.b07.superandes.negocio.VOPagueXCantidadLleveY;
 import uniandes.isis2304.b07.superandes.negocio.VOPedido;
 import uniandes.isis2304.b07.superandes.negocio.VOSucursal;
 import uniandes.isis2304.b07.superandes.negocio.Venta;
+import uniandes.isis2304.b07.superandes.persistencia.PersistenciaSuperAndes;
 /**
  * Clase principal de la interfaz
  * @author Santiago Carrero y Nicolas Hernandez, Tomado de esquema paranderos jdo, autor German Bravo
@@ -524,12 +531,14 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 	{
 		try 
 		{
-			String nombre = JOptionPane.showInputDialog (this, "Nombre del proveedor", "Registrar proveedor", JOptionPane.QUESTION_MESSAGE);
-			String nit = JOptionPane.showInputDialog (this, "Nit de los proveedores", "Registrar proveedor", JOptionPane.QUESTION_MESSAGE);    		
+			String nombre = JOptionPane.showInputDialog (this, "Ingrese el nombre del proveedor", "Registrar proveedor", JOptionPane.QUESTION_MESSAGE);
+			String nit = JOptionPane.showInputDialog (this, "Ingrese el NIT del proveedor", "Registrar proveedor", JOptionPane.QUESTION_MESSAGE);    		
 
 			if (nombre != null && nit != null)
-			{
+			{				
+
 				Proveedor proveedor = superAndes.registrarProveedor(nit,nombre);
+
 				if (proveedor == null)
 				{
 					throw new Exception ("No se pudo crear el proveedor" );
@@ -541,6 +550,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 
 				panelDatos.actualizarInterfaz(resultado);
 			}
+
 			else
 			{
 				panelDatos.actualizarInterfaz("Operaci�n cancelada por el usuario");
@@ -553,6 +563,81 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	}
+
+	public void registrarProductosAProveedor() {
+
+		List<Object[]> proveedores = superAndes.darElementos(PersistenciaSuperAndes.darTablaProveedor()); 
+
+		String[] options = new String[proveedores.size()];
+
+		int i = 0;
+
+		for (Object[] objeto : proveedores) {
+
+			options[i] = (String) objeto[1];			
+
+			i++;
+
+		}
+
+		ImageIcon icon = new ImageIcon("https://image.flaticon.com/icons/png/512/16/16075.png");
+
+		String opcion = (String) JOptionPane.showInputDialog(this, "Elija el proveedor","Agregar productos a proveedor",JOptionPane.QUESTION_MESSAGE, icon ,options, options[0]);
+
+		int x = 0;
+
+		while(opcion.equals(proveedores.get(x)[1])) {
+
+			x++;
+		}
+
+		String nit = (String) proveedores.get(x)[0];	
+
+		String productos = JOptionPane.showInputDialog("Inserte el codigo de los productos que ofrece el proveedor separados por comas");
+
+		String[] barCodes = productos.split(",");
+		
+		String calificaciones = JOptionPane.showInputDialog("Inserte las calificaciones de los productos que ofrece el proveedor separados por comas");
+
+		String[] calif = calificaciones.split(",");
+		
+		String precios = JOptionPane.showInputDialog("Inserte los precios de los productos que ofrece el proveedor separados por comas");
+
+		String[] prec = precios.split(",");
+		
+		
+		
+		for (int j = 0; j < barCodes.length; j++) {
+			
+			superAndes.registrarProductoAProveedor(barCodes[j], nit, calif[j], prec[j]);			
+		}
+
+	}
+
+
+	public void verProductos() {
+
+		List<Object[]> productos = superAndes.darElementos(PersistenciaSuperAndes.darTablaProducto());
+		
+		String[] options = new String[productos.size()];
+
+		int i = 0;
+		
+		for (Object[] objects : productos) {
+
+			options[i] = objects[0]+" - "+objects[1]+"\n";
+			
+			i++;
+		}
+		
+		ImageIcon icon = new ImageIcon("https://image.flaticon.com/icons/png/512/16/16075.png");
+
+		String opcion = (String) JOptionPane.showInputDialog(this, "Productos","Ver productos",JOptionPane.QUESTION_MESSAGE, icon ,options, options[0]);
+
+
+	}
+
+
 
 	public void registrarProductos()
 	{
@@ -806,15 +891,15 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 					+ "\n 3. Pague X cantidad lleve Y cantidad"
 					+ "\n 4. Pague 1 lleve el 2do con descuento de porcentaje"
 					+ "\n 5. Paquete de productos (cree antes el producto en conjunto)", "Registrar promocion", JOptionPane.QUESTION_MESSAGE);
-			
-			
+
+
 			if(!tipo.equals("5")){			
 				codigoProducto = JOptionPane.showInputDialog (this, "Codigo del producto al cual se le va a aplicar la promocion", "Registrar promocion", JOptionPane.QUESTION_MESSAGE);
 			}
-			
-			
+
+
 			switch (tipo) {
-			
+
 			//Pague N lleve M
 			case "1":
 				int pagaUnid = Integer.parseInt(JOptionPane.showInputDialog (this, "Numero de unidades que debe pagar el cliente?", "Registrar promocion", JOptionPane.QUESTION_MESSAGE));
