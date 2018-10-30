@@ -27,7 +27,7 @@ CREATE TABLE Sucursal
 
 CREATE TABLE ProductoOfrecidoSucursal
 (
-    idSucursal INTEGER NOT NULL,
+    idSucursal INTEGER NOT NULL, 
     codigoBarras VARCHAR(20) NOT NULL,
     precioUnitario INTEGER,
     precioUnidadMedida INTEGER,
@@ -53,14 +53,14 @@ CREATE TABLE Estante
 CREATE TABLE Bodega
 (
     idSucursal INTEGER NOT NULL,
-    idBodega INTEGER NOT NULL,
-    tipoproductoID INTEGER,
-    capacidadVolumen INTEGER,
-    capacidadTotalVolumen INTEGER,
-    capacidadPeso INTEGER,
-    capacidadTotalPeso INTEGER,
+    id INTEGER NOT NULL,
+    idCategoria INTEGER,
+    volumenActual INTEGER,
+    volumenMaximo INTEGER,
+    pesoActual INTEGER,
+    pesoMaximo INTEGER,
     idProducto VARCHAR(20),
-    CONSTRAINT bodega_pk PRIMARY KEY(idSucursal, idBodega)
+    CONSTRAINT bodega_pk PRIMARY KEY(idSucursal, id)
 );
 
 CREATE TABLE Categoria
@@ -239,7 +239,7 @@ ALTER TABLE PaqueteDeProductosPromo
 ;
 
 ALTER TABLE Bodega
-    ADD FOREIGN KEY (tipoproductoID)
+    ADD FOREIGN KEY (idCategoria)
     REFERENCES Categoria(idCategoria)
 ;    
 
@@ -380,7 +380,7 @@ ALTER TABLE RestriccionEstante
     
 ALTER TABLE RestriccionBodega
     ADD    FOREIGN KEY (idSucursal, id)
-    REFERENCES Bodega(idSucursal, idBodega)
+    REFERENCES Bodega(idSucursal, id)
 ;
     
 ALTER TABLE RestriccionBodega
