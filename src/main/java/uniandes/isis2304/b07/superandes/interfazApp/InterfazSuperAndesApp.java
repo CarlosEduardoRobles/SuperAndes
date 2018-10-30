@@ -1,5 +1,6 @@
 package uniandes.isis2304.b07.superandes.interfazApp;
 
+
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.awt.Color;
