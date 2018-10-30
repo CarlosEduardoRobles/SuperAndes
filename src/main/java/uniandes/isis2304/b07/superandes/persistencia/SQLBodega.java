@@ -3,42 +3,49 @@ package uniandes.isis2304.b07.superandes.persistencia;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-public class SQLBodega {
-	/* ****************************************************************
-	 * 			Constantes
-	 *****************************************************************/
+public class SQLBodega 
+{
+	// TODO Hacer esta clase.
+	// -----------------------------------------------------------
+	// -------------------------Constantes------------------------
+	// -----------------------------------------------------------
 	/**
-	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
-	 * Se renombra acá para facilitar la escritura de las sentencias
+	 * Cadena que representa el tipo de consulta que se va a realizar en las
+	 * sentencias de acceso a la base de datos Se renombra aca para facilitar la
+	 * escritura de las sentencias
 	 */
 	private final static String SQL = PersistenciaSuperAndes.SQL;
 
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
+	// -----------------------------------------------------------
+	// --------------------------Atributos------------------------
+	// -----------------------------------------------------------
 	/**
-	 * El manejador de persistencia general de la aplicación
+	 * El manejador de persistencia general de la aplicacion
 	 */
 	private PersistenciaSuperAndes pp;
 
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	/**
-	 * Constructor
-	 * @param pp - El Manejador de persistencia de la aplicación
-	 */
+	// -----------------------------------------------------------
+	// --------------------------Metodos--------------------------
+	// -----------------------------------------------------------
 	public SQLBodega (PersistenciaSuperAndes pp)
 	{
 		this.pp = pp;
 	}
-
-	public long insertarBodega(PersistenceManager pm,long idSucursal, long id, long idTipoProducto, double actualCapacidadVolumen, double maximaCapacidadVolumen,
-			double capacidadPeso, double capacidadTotalPeso) {
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaBodega  () + "(idSucursal, id, idTipoProducto, actualCapacidadVolumen, maximaCapacidadVolumen,"+
-    			"capacidadPeso, capacidadTotalPeso) values (?, ?, ?, ?, ?, ?)");
-        q.setParameters(idSucursal, id, idTipoProducto, actualCapacidadVolumen, maximaCapacidadVolumen,
-    			capacidadPeso, capacidadTotalPeso);
-        return (long) q.executeUnique();
+	
+	public long adicionarBodega(PersistenceManager pm, long id, long idSucursal, long idCategoria, long idProducto, Double volumenMaximo,
+			Double pesoMaximo) 
+	{		
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaBodega()+"(id, idSucursal,idCategoria, volumenMaximo "
+				+ ",pesoMaximo, idProducto) values (?, ?, ?, ?, ?, ?)");
+		q.setParameters(id, idSucursal,idCategoria, volumenMaximo, pesoMaximo, idProducto);
+		return (long) q.executeUnique();
+	}
+	
+	public long eliminarBodegaPorId(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBodega() + " WHERE id = ?");
+	    q.setParameters(id);
+	    return (long) q.executeUnique();
 	}
 }
+
