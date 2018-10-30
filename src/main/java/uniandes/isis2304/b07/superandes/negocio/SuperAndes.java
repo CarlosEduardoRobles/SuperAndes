@@ -75,7 +75,7 @@ public class SuperAndes {
 		return proveedor;
 	}
 
-	public List<Producto> registrarProductos(String[]codigosBarras, String[] nombres, String[] presentaciones, String[] marcas, int[]cantidades, String[] unidadesMedida, String[] especificacionesEmpacado)
+	public List<Producto> registrarProductos(String[]codigosBarras, String[] nombres, String[] presentaciones, String[] marcas, int[]cantidades, String[] unidadesMedida, String[] especificacionesEmpacado, String[] categorias)
 	{
 		log.info ("Registrando productos: " + codigosBarras.length);
 
@@ -83,7 +83,7 @@ public class SuperAndes {
 
 		for (int i = 0; i < codigosBarras.length; i++) {
 
-			Producto a = pp.registrarProductos(codigosBarras[i], nombres[i], presentaciones[i], marcas[i], cantidades[i], unidadesMedida[i], especificacionesEmpacado[i]);	
+			Producto a = pp.registrarProductos(codigosBarras[i], nombres[i], presentaciones[i], marcas[i], cantidades[i], unidadesMedida[i], especificacionesEmpacado[i], categorias[i]);	
 
 			prod.add(a);
 
@@ -138,9 +138,9 @@ public class SuperAndes {
 	{
 		return pp.registrarPromocionPague1Lleve2doDesc(codigoProducto, fechaVencimientoPromocion, porcentaje);
 	}
-	public Promocion registrarPromocionPaqueteProductos(String codigoProducto, Timestamp fechaVencimientoPromocion, String producto2, double precioConjunto)
+	public Promocion registrarPromocionPaqueteProductos(Timestamp fechaVencimientoPromocion, String codigoProducto, int precioConjunto)
 	{
-		return pp.registrarPromocionPaqueteProductos(codigoProducto, fechaVencimientoPromocion, producto2, precioConjunto);
+		return pp.registrarPromocionPaqueteProductos(fechaVencimientoPromocion, codigoProducto, precioConjunto);
 	}
 
 
@@ -251,6 +251,28 @@ public class SuperAndes {
 
 	public void productosDeProveedor(String nit) {
 
+	}
+	
+	
+	//METODOS DE RETORNO
+
+
+	public List<Object[]> darElementos(String tabla) {
+		
+		return pp.darElementos(tabla);
+	}
+
+
+	public void registrarProductoAProveedor(String barCode, String nit, String calif, String prec) {
+
+		pp.registrarProductoAProveedor(barCode, nit, calif, prec);
+	}
+
+
+	public void registrarCategoria(String nombreCategoria) {
+		
+		pp.registrarCategoria(nombreCategoria);
+		
 	}
 
 

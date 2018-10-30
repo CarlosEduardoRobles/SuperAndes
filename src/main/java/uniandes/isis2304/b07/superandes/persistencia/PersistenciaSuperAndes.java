@@ -201,6 +201,10 @@ public class PersistenciaSuperAndes {
 	 * Atributo para el acceso a la tabla VENTAPRODUCTO de la BD.
 	 */
 	private SQLVentaProducto sqlVentaProducto;
+
+	private SQLPaqueteDeProductosPromo sqlPaqueteDeProductosPromo;
+
+	private SQLElementos sqlElementos;
 	
 	//------------------------------------------------------------------
 	//--------------Métodos del MANEJADOR DE PERSISTENCIA---------------
@@ -218,57 +222,57 @@ public class PersistenciaSuperAndes {
 	 * Retorna la cadena de caracteres con el nombre del secuenciador de parranderos.
 	 * @return La cadena de caracteres con el nombre del secuenciador de parranderos.
 	 */
-	public String darSeqSuperAndes ()	{ return "SuperAndes_sequence";	}
+	public static String darSeqSuperAndes ()	{ return "SuperAndes_sequence";	}
 	
-	public String darTablaBodega()	{ return "BODEGA"; }
+	public static String darTablaBodega()	{ return "BODEGA"; }
 
-	public String darTablaCategoria()	{ return "CATEGORIA"; }
+	public static String darTablaCategoria()	{ return "CATEGORIA"; }
 
-	public String darTablaCategoriaProducto()	{ return "CATEGORIAPRODUCTO"; }
+	public static String darTablaCliente()	{ return "CLIENTE"; }
 
-	public String darTablaCliente()	{ return "CLIENTE"; }
+	public static String darTablaDescPorcentajePromo()	{ return "DESCPORCENTAJEPROMO"; }
 
-	public String darTablaDescPorcentajePromo()	{ return "DESCPORCENTAJEPROMO"; }
+	public static String darTablaEstante()	{ return "ESTANTE"; }
 
-	public String darTablaEstante()	{ return "ESTANTE"; }
+	public static String darTablaFactura()	{ return "FACTURA"; }
 
-	public String darTablaFactura()	{ return "FACTURA"; }
+	public static String darTablaLlegadaPedido()	{ return "LLEGADAPEDIDO"; }
 
-	public String darTablaLlegadaPedido()	{ return "LLEGADAPEDIDO"; }
+	public static String darTablaPague1Lleve2ConDescPromo()	{ return "PAGUE1LLEVE2CONDESCPROMO"; }
 
-	public String darTablaPague1Lleve2ConDescPromo()	{ return "PAGUE1LLEVE2CONDESCPROMO"; }
+	public static String darTablaPagueNUnidadesLleveMPromo()	{ return "PAGUENUNIDADESLLEVEMPROMO"; }
 
-	public String darTablaPagueNUnidadesLleveMPromo()	{ return "PAGUENUNIDADESLLEVEMPROMO"; }
+	public static String darTablaPagueXCantidadLleveYPromo()	{ return "PAGUEXCANTIDADLLEVEYPROMO"; }
+	
+	public static String darTablaPaqueteDeProductosPromo() {return "PAQUETEDEPRODUCTOSPROMO";}
 
-	public String darTablaPagueXCantidadLleveYPromo()	{ return "PAGUEXCANTIDADLLEVEYPROMO"; }
+	public static String darTablaPedido()	{ return "PEDIDO"; }
 
-	public String darTablaPedido()	{ return "PEDIDO"; }
+	public static String darTablaPersonaJuridica()	{ return "PERSONAJURIDICA"; }
 
-	public String darTablaPersonaJuridica()	{ return "PERSONAJURIDICA"; }
+	public static String darTablaProducto()	{ return "PRODUCTO"; }
 
-	public String darTablaProducto()	{ return "PRODUCTO"; }
+	public static String darTablaProductoPedido()	{ return "PRODUCTOPEDIDO"; }	
 
-	public String darTablaProductoPedido()	{ return "PRODUCTOPEDIDO"; }	
+	public static String darTablaProductoPromocion()	{ return "PRODUCTOPROMOCION"; }
 
-	public String darTablaProductoPromocion()	{ return "PRODUCTOPROMOCION"; }
+	public static String darTablaProductoProveedor()	{ return "PROVEEDORPRODUCTO"; }
 
-	public String darTablaProductoProveedor()	{ return "PRODUCTOPROVEEDOR"; }
+	public static String darTablaProductoSucursal()	{ return "PRODUCTOSUCURSAL"; }
 
-	public String darTablaProductoSucursal()	{ return "PRODUCTOSUCURSAL"; }
+	public static String darTablaPromocion()	{ return "PROMOCION"; }
 
-	public String darTablaPromocion()	{ return "PROMOCION"; }
+	public static String darTablaProveedor()	{ return "PROVEEDOR"; }
 
-	public String darTablaProveedor()	{ return "PROVEEDOR"; }
+	public static String darTablaRestriccionBodega()	{ return "RESTRICCIONBODEGA"; }
 
-	public String darTablaRestriccionBodega()	{ return "RESTRICCIONBODEGA"; }
+	public static String darTablaRestriccionEstante()	{ return "RESTRICCIONESTANTE"; }
 
-	public String darTablaRestriccionEstante()	{ return "RESTRICCIONESTANTE"; }
+	public static String darTablaSucursal()	{ return "SUCURSAL"; }
 
-	public String darTablaSucursal()	{ return "SUCURSAL"; }
+	public static String darTablaVenta()	{ return "VENTA"; }
 
-	public String darTablaVenta()	{ return "VENTA"; }
-
-	public String darTablaVentaProducto()	{ return "VENTAPRODUCTO"; }
+	public static String darTablaVentaProducto()	{ return "VENTAPRODUCTO"; }
 
 	/**
 	 * Constructor privado, que recibe los nombres de las tablas en un objeto Json - Patrón SINGLETON
@@ -347,8 +351,9 @@ public class PersistenciaSuperAndes {
 		sqlProductoPromocion = new SQLProductoPromocion(this);	sqlProductoProveedor = new SQLProductoProveedor(this);	sqlProductoSucursal = new SQLProductoSucursal(this);
 		sqlPromocion = new SQLPromocion(this);	sqlProveedor = new SQLProveedor(this);	sqlRestriccionBodega = new SQLRestriccionBodega(this);		
 		sqlRestriccionEstante = new SQLRestriccionEstante(this);	sqlSucursal = new SQLSucursal(this);	sqlVenta = new SQLVenta(this);
-		sqlVentaProducto = new SQLVentaProducto(this);	sqlUtil = new SQLUtil(this);
-
+		sqlVentaProducto = new SQLVentaProducto(this); sqlPaqueteDeProductosPromo = new SQLPaqueteDeProductosPromo(this); sqlUtil = new SQLUtil(this);
+		sqlElementos = new SQLElementos(this);
+		
 	}	
 	
 	/* ****************************************************************
@@ -386,7 +391,7 @@ public class PersistenciaSuperAndes {
 		}
 	}
 
-	public Producto registrarProductos(String codigosBarras, String nombres, String presentaciones, String marcas, int cantidades, String unidadesMedida, String especificacionesEmpacado)
+	public Producto registrarProductos(String codigosBarras, String nombres, String presentaciones, String marcas, int cantidades, String unidadesMedida, String especificacionesEmpacado, String categorias)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 
@@ -395,12 +400,12 @@ public class PersistenciaSuperAndes {
 		try {
 
 			tx.begin();
-			long tuplasInsertadas = sqlProducto.adicionarProducto(pm, codigosBarras, nombres, presentaciones, marcas, cantidades, unidadesMedida, especificacionesEmpacado);
+			long tuplasInsertadas = sqlProducto.adicionarProducto(pm, codigosBarras, nombres, presentaciones, marcas, cantidades, unidadesMedida, especificacionesEmpacado, categorias);
 			tx.commit();
 
 			log.trace ("Inserción de producto: " + nombres + ": " + tuplasInsertadas + " tuplas insertadas");
 
-			return new Producto(codigosBarras, nombres , presentaciones, marcas, cantidades,unidadesMedida, especificacionesEmpacado);
+			return new Producto(codigosBarras, nombres , presentaciones, marcas, cantidades,unidadesMedida, especificacionesEmpacado, categorias);
 
 		} catch (Exception e) {
 
@@ -672,19 +677,18 @@ public class PersistenciaSuperAndes {
 			pm.close();
 		}
 	}
-	public Promocion registrarPromocionPaqueteProductos(String codigoProducto, Timestamp fechaVencimientoPromocion, String producto2, double precioConjunto)
+	public Promocion registrarPromocionPaqueteProductos( Timestamp fechaVencimientoPromocion, String codigoProducto, int precioConjunto)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
 		try 
 		{
 			tx.begin();
-			String codigoPromo= nextval()+"";
-			long tuplasInsertadas=sqlPromocion.adicionarPromocion(pm, codigoPromo, 1, fechaVencimientoPromocion);
-			//tuplasInsertadas+=sqlProductoPromocion.adicionarPromocion(pm,codigoProducto , codigoPromo);
+			long tuplasInsertadas=sqlPromocion.adicionarPromocion(pm, codigoProducto, 5, fechaVencimientoPromocion);
+			long tuplasInsertadas2 = sqlPaqueteDeProductosPromo.adicionarPaquete(pm, codigoProducto, precioConjunto);
 			tx.commit();
-			log.trace ("Inserción de promocion: " + codigoPromo + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Promocion(codigoPromo, fechaVencimientoPromocion);
+			log.trace ("Inserción de promocion: " + codigoProducto + ": " + tuplasInsertadas + " tuplas insertadas");
+			return new Promocion(codigoProducto, fechaVencimientoPromocion);
 		} 
 		catch (Exception e) 
 		{
@@ -947,6 +951,63 @@ public class PersistenciaSuperAndes {
 
 			return null;
 		}	
+	}
+	
+	
+	//METODO DE RETORNO
+	
+	public List<Object[]> darElementos(String tabla) {
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+
+		List<Object[]> retorno = sqlElementos.darElementos(pm, tabla);
+		
+		return retorno;
+		
+	}
+
+	public void registrarProductoAProveedor(String barCode, String nit, String calif, String prec) {
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		Transaction tx = pm.currentTransaction();
+		
+		try {
+		tx.begin();
+		
+		sqlProductoProveedor.registrarProductoAProveedor(pm,barCode, nit, calif, prec);
+	
+		tx.commit();
+		}
+		catch (Exception e) {
+									
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+
+		}
+	}
+
+	public void registrarCategoria(String nombreCategoria) {
+		
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		Transaction tx = pm.currentTransaction();
+		
+		try {
+			tx.begin();
+			
+			long id = nextval();
+			
+			sqlCategoria.adicionarCategoria(pm, id, nombreCategoria);
+		
+			tx.commit();
+			}
+			catch (Exception e) {
+										
+				log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+
+			}
+		
 	}
 
 

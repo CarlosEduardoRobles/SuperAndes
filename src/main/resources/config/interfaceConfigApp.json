@@ -51,6 +51,14 @@
 				{
 					"label": "RF11 Registrar una venta",
 					"event": "registrarVenta"
+				},
+				{
+					"label": "Registrar productos existentes a un proveedor existente",
+					"event": "registrarProductosAProveedor"
+				},
+				{
+					"label": "Registrar una categoría",
+					"event": "registrarCategoria"
 				}
 			]
 		},
@@ -72,7 +80,16 @@
 				{
 					"label": "RFC4 Mostrar productos con cierta caracteristica",
 					"event": "productosConCiertaCaracteristica"
+				},
+				{
+					"label": "Ver productos",
+					"event": "verProductos"
+				},
+				{
+					"label": "Ver categorías",
+					"event": "verCategorias"
 				}
+				
 			]
 		},
 		{ "menuTitle": "Bono",

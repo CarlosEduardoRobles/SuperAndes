@@ -10,6 +10,7 @@ CREATE TABLE Producto
     cantidad INTEGER,
     unidadDeMedida VARCHAR(20),
     especificacionEmpacado VARCHAR(20),
+    idCategoria INTEGER NOT NULL,
     CONSTRAINT producto_pk PRIMARY KEY(codigoDeBarras)
 );
 
@@ -160,13 +161,6 @@ CREATE TABLE Venta
     CONSTRAINT venta_pk PRIMARY KEY(numeroVenta)
 );
 
-CREATE TABLE CategoriaProducto
-(
-    idCategoria INTEGER NOT NULL,
-    idProducto VARCHAR(20) NOT NULL,
-    CONSTRAINT categoriaproducto_pk PRIMARY KEY(idCategoria, idProducto)
-);
-
 CREATE TABLE VentaProducto
 (
     numeroVenta INTEGER NOT NULL,
@@ -206,6 +200,14 @@ CREATE TABLE PagueNUnidadesLleveMPromo
     CONSTRAINT paguenunidadesllevempromo_pk PRIMARY KEY(codigoPromo)
 );
 
+
+CREATE TABLE PaqueteDeProductosPromo
+(
+	codigoPromo VARCHAR(20) NOT NULL,
+	precioPromo INTEGER NOT NULL,
+	CONSTRAINT paquetedeproductospromo_pk PRIMARY KEY (codigoPromo)
+);
+
 CREATE TABLE PagueXCantidadLleveYPromo
 (
     codigoPromo VARCHAR(20) NOT NULL,
@@ -230,6 +232,11 @@ CREATE TABLE Pague1Lleve2ConDescPromo
 
 
 -- Crear llaves foraneas
+
+ALTER TABLE PaqueteDeProductosPromo
+	ADD FOREIGN KEY (codigoPromo)
+	REFERENCES Producto(codigoDeBarras)
+;
 
 ALTER TABLE Bodega
     ADD FOREIGN KEY (idCategoria)
@@ -328,10 +335,6 @@ ALTER TABLE ProductoPromocion
     REFERENCES Producto(codigoDeBarras)
 ;
     
-ALTER TABLE CategoriaProducto
-    ADD    FOREIGN KEY (idProducto)
-    REFERENCES Producto(codigoDeBarras)
-;
     
 ALTER TABLE ProductoOfrecidoSucursal
     ADD    FOREIGN KEY (codigoBarras)
@@ -343,10 +346,6 @@ ALTER TABLE ProductoPedido
     REFERENCES Producto(codigoDeBarras)
 ;
     
-ALTER TABLE CategoriaProducto
-    ADD    FOREIGN KEY (idCategoria)
-    REFERENCES Categoria(idCategoria)
-;
     
 ALTER TABLE ProductoOfrecidoSucursal
     ADD    FOREIGN KEY (idSucursal)
@@ -409,6 +408,11 @@ ALTER TABLE Venta
     ADD    FOREIGN KEY (idSucursal)
     REFERENCES Sucursal(idSucursal)
 ;        
+ALTER TABLE Producto
+    ADD FOREIGN KEY (idCategoria)
+    REFERENCES Categoria(idCategoria)
+;
+
 
 -- Restricciones 
 
