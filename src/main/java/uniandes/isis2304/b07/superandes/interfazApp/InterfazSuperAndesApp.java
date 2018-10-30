@@ -668,7 +668,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 
 		for (Object[] objects : productos) {
 
-			options[i] = objects[0]+" - "+objects[1]+"\n";
+			options[i] = objects[1]+" - "+objects[0]+"\n";
 
 			i++;
 		}
@@ -679,6 +679,31 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 
 
 	}
+	
+	
+	
+	public void verCategorias() {
+
+		List<Object[]> categorias = superAndes.darElementos(PersistenciaSuperAndes.darTablaCategoria());
+
+		String[] options = new String[categorias.size()];
+
+		int i = 0;
+
+		for (Object[] objects : categorias) {
+
+			options[i] = objects[0]+" - "+objects[1]+"\n";
+
+			i++;
+		}
+
+		ImageIcon icon = new ImageIcon("https://image.flaticon.com/icons/png/512/16/16075.png");
+
+		String opcion = (String) JOptionPane.showInputDialog(this, "Categorias","Ver categorias",JOptionPane.QUESTION_MESSAGE, icon ,options, options[0]);
+
+
+	}
+
 
 
 
@@ -693,12 +718,18 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 			String cantidad = JOptionPane.showInputDialog (this, "Cantidades de los productos? Separados por comas", "Registrar producto", JOptionPane.QUESTION_MESSAGE);
 			String unidadMedida = JOptionPane.showInputDialog (this, "Unidades de medida de los productos? Separados por comas", "Registrar producto", JOptionPane.QUESTION_MESSAGE);
 			String especificacionEmpecado = JOptionPane.showInputDialog (this, "Especificaciones empacado de los productos? Separados por comas", "Registrar producto", JOptionPane.QUESTION_MESSAGE);
+			String categoria = JOptionPane.showInputDialog(this, "Ingrese id de las categorias separados por comas");
+			
 			
 			String[] codigosBarras=codigoBarra.split(",");
 			String[] nombres=nombre.split(",");
 			String[] presentaciones=presentacion.split(",");
 			String[] marcas = marca.split(",");
 			String[] cantidadesS=cantidad.split(",");
+			String[] categorias = categoria.split(",");
+			
+			
+
 
 			if(confirmacion)
 				var = codigosBarras[0];	
@@ -711,9 +742,9 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 			String[] especificacionesEmpacado=especificacionEmpecado.split(",");
 
 
-			if (codigosBarras != null && nombres != null && presentaciones != null && marcas != null && cantidades != null && unidadesMedida != null && especificacionesEmpacado != null)
+			if (codigosBarras != null && nombres != null && presentaciones != null && marcas != null && cantidades != null && unidadesMedida != null && especificacionesEmpacado != null && categorias != null)
 			{
-				List<Producto> productos =superAndes.registrarProductos(codigosBarras, nombres, presentaciones,marcas, cantidades, unidadesMedida, especificacionesEmpacado);
+				List<Producto> productos =superAndes.registrarProductos(codigosBarras, nombres, presentaciones,marcas, cantidades, unidadesMedida, especificacionesEmpacado, categorias);
 				if (productos == null)
 				{
 					throw new Exception ("No se pudo crear productos  " );

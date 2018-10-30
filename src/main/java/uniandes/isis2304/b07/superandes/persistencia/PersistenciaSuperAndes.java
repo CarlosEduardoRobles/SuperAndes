@@ -228,8 +228,6 @@ public class PersistenciaSuperAndes {
 
 	public static String darTablaCategoria()	{ return "CATEGORIA"; }
 
-	public static String darTablaCategoriaProducto()	{ return "CATEGORIAPRODUCTO"; }
-
 	public static String darTablaCliente()	{ return "CLIENTE"; }
 
 	public static String darTablaDescPorcentajePromo()	{ return "DESCPORCENTAJEPROMO"; }
@@ -393,7 +391,7 @@ public class PersistenciaSuperAndes {
 		}
 	}
 
-	public Producto registrarProductos(String codigosBarras, String nombres, String presentaciones, String marcas, int cantidades, String unidadesMedida, String especificacionesEmpacado)
+	public Producto registrarProductos(String codigosBarras, String nombres, String presentaciones, String marcas, int cantidades, String unidadesMedida, String especificacionesEmpacado, String categorias)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 
@@ -402,12 +400,12 @@ public class PersistenciaSuperAndes {
 		try {
 
 			tx.begin();
-			long tuplasInsertadas = sqlProducto.adicionarProducto(pm, codigosBarras, nombres, presentaciones, marcas, cantidades, unidadesMedida, especificacionesEmpacado);
+			long tuplasInsertadas = sqlProducto.adicionarProducto(pm, codigosBarras, nombres, presentaciones, marcas, cantidades, unidadesMedida, especificacionesEmpacado, categorias);
 			tx.commit();
 
 			log.trace ("Inserción de producto: " + nombres + ": " + tuplasInsertadas + " tuplas insertadas");
 
-			return new Producto(codigosBarras, nombres , presentaciones, marcas, cantidades,unidadesMedida, especificacionesEmpacado);
+			return new Producto(codigosBarras, nombres , presentaciones, marcas, cantidades,unidadesMedida, especificacionesEmpacado, categorias);
 
 		} catch (Exception e) {
 

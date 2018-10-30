@@ -10,7 +10,7 @@ CREATE TABLE Producto
     cantidad INTEGER,
     unidadDeMedida VARCHAR(20),
     especificacionEmpacado VARCHAR(20),
-    idCategoria VARCHAR(20),
+    idCategoria INTEGER NOT NULL,
     CONSTRAINT producto_pk PRIMARY KEY(codigoDeBarras)
 );
 

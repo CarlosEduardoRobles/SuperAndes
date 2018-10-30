@@ -75,7 +75,7 @@ public class SuperAndes {
 		return proveedor;
 	}
 
-	public List<Producto> registrarProductos(String[]codigosBarras, String[] nombres, String[] presentaciones, String[] marcas, int[]cantidades, String[] unidadesMedida, String[] especificacionesEmpacado)
+	public List<Producto> registrarProductos(String[]codigosBarras, String[] nombres, String[] presentaciones, String[] marcas, int[]cantidades, String[] unidadesMedida, String[] especificacionesEmpacado, String[] categorias)
 	{
 		log.info ("Registrando productos: " + codigosBarras.length);
 
@@ -83,7 +83,7 @@ public class SuperAndes {
 
 		for (int i = 0; i < codigosBarras.length; i++) {
 
-			Producto a = pp.registrarProductos(codigosBarras[i], nombres[i], presentaciones[i], marcas[i], cantidades[i], unidadesMedida[i], especificacionesEmpacado[i]);	
+			Producto a = pp.registrarProductos(codigosBarras[i], nombres[i], presentaciones[i], marcas[i], cantidades[i], unidadesMedida[i], especificacionesEmpacado[i], categorias[i]);	
 
 			prod.add(a);
 
