@@ -19,9 +19,11 @@ public class Producto implements VOProducto{
 	public String unidadMedida;
 	
 	public String especificacionEmpacado;
+	
+	public String categoria;
 
 	public Producto(String codigosBarras, String nombres, String presentaciones, String marcas, int cantidades, String unidadesMedida,
-			String especificacionesEmpacado) {
+			String especificacionesEmpacado, String categorias) {
 		
 		codigoBarras = codigosBarras;
 		
@@ -36,6 +38,8 @@ public class Producto implements VOProducto{
 		unidadMedida = unidadesMedida;
 		
 		especificacionEmpacado = especificacionesEmpacado;
+		
+		categoria = categorias;
 		
 	}
 

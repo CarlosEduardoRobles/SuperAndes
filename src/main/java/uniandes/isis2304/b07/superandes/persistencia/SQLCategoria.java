@@ -34,42 +34,42 @@ public class SQLCategoria
 	//-----------------------------------------------------------
 	public long adicionarCategoria(PersistenceManager pm, long id, String tipo) 
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + psa.darTablaCategoria() + "(id, tipo) values (?, ?)");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + PersistenciaSuperAndes.darTablaCategoria() + "(idcategoria, tipocat) values (?, ?)");
 		q.setParameters(id, tipo);
 	    return (long)q.executeUnique();            
 	}
 			
 	public long eliminarCategoriaPorId (PersistenceManager pm, long id)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + psa.darTablaCliente () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "DELETE FROM " + PersistenciaSuperAndes.darTablaCliente () + " WHERE id = ?");
 		q.setParameters(id);
 		return (long) q.executeUnique();
 	}
 	
 	public long eliminarCategoriaPorTipo (PersistenceManager pm, String tipo)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + psa.darTablaCliente () + " WHERE tipo = ?");
+		Query q = pm.newQuery(SQL, "DELETE FROM " + PersistenciaSuperAndes.darTablaCliente () + " WHERE tipo = ?");
 		q.setParameters(tipo);
 		return (long) q.executeUnique();
 	}
 		
 	public Categoria darCategoriaPorId (PersistenceManager pm, long id) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + psa.darTablaCliente () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + PersistenciaSuperAndes.darTablaCliente () + " WHERE id = ?");
 		q.setParameters(id);
 		return (Categoria) q.executeUnique();
 	}
 	
 	public Categoria darCategoriaPorTipo (PersistenceManager pm, String tipo) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + psa.darTablaCliente () + " WHERE tipo = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + PersistenciaSuperAndes.darTablaCliente () + " WHERE tipo = ?");
 		q.setParameters(tipo);
 		return (Categoria) q.executeUnique();
 	}
 			
 	public List<Categoria> darCategorias (PersistenceManager pm)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + psa.darTablaCliente ());
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + PersistenciaSuperAndes.darTablaCliente ());
 		q.setResultClass(Categoria.class);
 		return (List<Categoria>) q.executeList();
 	}
