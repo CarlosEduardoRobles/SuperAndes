@@ -10,6 +10,7 @@ CREATE TABLE Producto
     cantidad INTEGER,
     unidadDeMedida VARCHAR(20),
     especificacionEmpacado VARCHAR(20),
+    idCategoria VARCHAR(20),
     CONSTRAINT producto_pk PRIMARY KEY(codigoDeBarras)
 );
 
@@ -158,13 +159,6 @@ CREATE TABLE Venta
     fechaVenta DATE,
     totalVenta INTEGER,    
     CONSTRAINT venta_pk PRIMARY KEY(numeroVenta)
-);
-
-CREATE TABLE CategoriaProducto
-(
-    idCategoria INTEGER NOT NULL,
-    idProducto VARCHAR(20) NOT NULL,
-    CONSTRAINT categoriaproducto_pk PRIMARY KEY(idCategoria, idProducto)
 );
 
 CREATE TABLE VentaProducto
@@ -341,10 +335,6 @@ ALTER TABLE ProductoPromocion
     REFERENCES Producto(codigoDeBarras)
 ;
     
-ALTER TABLE CategoriaProducto
-    ADD    FOREIGN KEY (idProducto)
-    REFERENCES Producto(codigoDeBarras)
-;
     
 ALTER TABLE ProductoOfrecidoSucursal
     ADD    FOREIGN KEY (codigoBarras)
@@ -356,10 +346,6 @@ ALTER TABLE ProductoPedido
     REFERENCES Producto(codigoDeBarras)
 ;
     
-ALTER TABLE CategoriaProducto
-    ADD    FOREIGN KEY (idCategoria)
-    REFERENCES Categoria(idCategoria)
-;
     
 ALTER TABLE ProductoOfrecidoSucursal
     ADD    FOREIGN KEY (idSucursal)
@@ -422,6 +408,11 @@ ALTER TABLE Venta
     ADD    FOREIGN KEY (idSucursal)
     REFERENCES Sucursal(idSucursal)
 ;        
+ALTER TABLE Producto
+    ADD FOREIGN KEY (idCategoria)
+    REFERENCES Categoria(idCategoria)
+;
+
 
 -- Restricciones 
 
