@@ -53,14 +53,13 @@
 					"event": "registrarVenta"
 				},
 				{
-					"label": "PRUEBA LISTAMIENTO PROVEEDORES",
+					"label": "Registrar productos existentes a un proveedor existente",
 					"event": "registrarProductosAProveedor"
 				},
 				{
-					"label": "Ver productos",
-					"event": "verProductos"
+					"label": "Registrar una categoría",
+					"event": "registrarCategoria"
 				}
-				
 			]
 		},
 		{ "menuTitle": "Requerimientos Funcionales de Consulta",
@@ -81,7 +80,12 @@
 				{
 					"label": "RFC4 Mostrar productos con cierta caracteristica",
 					"event": "productosConCiertaCaracteristica"
+				},
+				{
+					"label": "Ver productos",
+					"event": "verProductos"
 				}
+				
 			]
 		},
 		{ "menuTitle": "Bono",

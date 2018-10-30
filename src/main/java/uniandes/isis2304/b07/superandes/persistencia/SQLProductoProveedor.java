@@ -30,8 +30,11 @@ public class SQLProductoProveedor
 	
 
 	public void registrarProductoAProveedor(PersistenceManager pm, String barCode, String nit, String calif, String prec) {
+		
+		double precio = Double.parseDouble(prec);
+		
 		Query q = pm.newQuery(SQL, "INSERT INTO " + PersistenciaSuperAndes.darTablaProductoProveedor()+ "(NITPROVEEDOR,CODIGOPRODUCTO,PRECIO,CALIFICACIONCALIDAD) values (?, ?, ?, ?)"); 
-		q.setParameters(nit,barCode, prec,calif);
+		q.setParameters(nit,barCode,precio,calif);
 		q.executeUnique();
 	}
 

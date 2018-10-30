@@ -269,6 +269,13 @@ public class SuperAndes {
 	}
 
 
+	public void registrarCategoria(String nombreCategoria) {
+		
+		pp.registrarCategoria(nombreCategoria);
+		
+	}
+
+
 
 
 }

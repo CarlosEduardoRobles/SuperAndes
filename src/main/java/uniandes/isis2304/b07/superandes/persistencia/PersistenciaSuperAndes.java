@@ -974,11 +974,42 @@ public class PersistenciaSuperAndes {
 		
 		Transaction tx = pm.currentTransaction();
 		
+		try {
 		tx.begin();
 		
 		sqlProductoProveedor.registrarProductoAProveedor(pm,barCode, nit, calif, prec);
 	
 		tx.commit();
+		}
+		catch (Exception e) {
+									
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+
+		}
+	}
+
+	public void registrarCategoria(String nombreCategoria) {
+		
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		Transaction tx = pm.currentTransaction();
+		
+		try {
+			tx.begin();
+			
+			long id = nextval();
+			
+			sqlCategoria.adicionarCategoria(pm, id, nombreCategoria);
+		
+			tx.commit();
+			}
+			catch (Exception e) {
+										
+				log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+
+			}
+		
 	}
 
 

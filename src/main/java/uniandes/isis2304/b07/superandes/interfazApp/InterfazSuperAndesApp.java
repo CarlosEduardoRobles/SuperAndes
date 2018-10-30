@@ -399,7 +399,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 		resultado += " * Proyecto: SuperAndes Uniandes\n";
 		resultado += " * @version 1.0\n";
 		resultado += " * @author Santiago Carrero\n";
-		resultado += " * @author Nicolas Hernandez\n";
+		resultado += " * @author Carlos Robles\n";
 		resultado += " * Octubre de 2018\n";
 		resultado += " * Esquema tomado de parranderos jdo de German Bravo de 2018\n";
 		resultado += " * \n";
@@ -566,50 +566,92 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 
 	public void registrarProductosAProveedor() {
 
-		List<Object[]> proveedores = superAndes.darElementos(PersistenciaSuperAndes.darTablaProveedor()); 
+		try {
 
-		String[] options = new String[proveedores.size()];
+			List<Object[]> proveedores = superAndes.darElementos(PersistenciaSuperAndes.darTablaProveedor()); 
 
-		int i = 0;
+			String[] options = new String[proveedores.size()];
 
-		for (Object[] objeto : proveedores) {
+			int i = 0;
 
-			options[i] = (String) objeto[1];			
+			for (Object[] objeto : proveedores) {
 
-			i++;
+				options[i] = (String) objeto[1];			
+
+				i++;
+
+			}
+
+			ImageIcon icon = new ImageIcon("https://image.flaticon.com/icons/png/512/16/16075.png");
+
+			String opcion = (String) JOptionPane.showInputDialog(this, "Elija el proveedor","Agregar productos a proveedor",JOptionPane.QUESTION_MESSAGE, icon ,options, options[0]);
+
+			int x = 0;
+
+			while(!opcion.equals(proveedores.get(x)[1])) {
+
+				x++;
+			}
+
+			String nit = (String) proveedores.get(x)[0];	
+
+			String productos = JOptionPane.showInputDialog(this,"Inserte el codigo de los productos que ofrece el proveedor separados por comas");
+
+			String[] barCodes = productos.split(",");
+
+			String calificaciones = JOptionPane.showInputDialog(this,"Inserte las calificaciones de los productos que ofrece el proveedor separados por comas");
+
+			String[] calif = calificaciones.split(",");
+
+			String precios = JOptionPane.showInputDialog(this,"Inserte los precios de los productos que ofrece el proveedor separados por comas");
+
+			String[] prec = precios.split(",");
+
+
+
+			for (int j = 0; j < barCodes.length; j++) {
+
+				superAndes.registrarProductoAProveedor(barCodes[j], nit, calif[j], prec[j]);			
+			}
+
+			String resultado = "Productos añadidos exitosamente al proveedor con NIT: "+nit;
+			panelDatos.actualizarInterfaz(resultado);			
 
 		}
 
-		ImageIcon icon = new ImageIcon("https://image.flaticon.com/icons/png/512/16/16075.png");
+		catch(Exception e) {
 
-		String opcion = (String) JOptionPane.showInputDialog(this, "Elija el proveedor","Agregar productos a proveedor",JOptionPane.QUESTION_MESSAGE, icon ,options, options[0]);
+			String resultado = generarMensajeError(e);
+			if(resultado.contains("0")) {
 
-		int x = 0;
+				resultado = "Error verifique que haya productos y proveedores existentes";
+			}
+			panelDatos.actualizarInterfaz(resultado);
 
-		while(opcion.equals(proveedores.get(x)[1])) {
-
-			x++;
 		}
 
-		String nit = (String) proveedores.get(x)[0];	
+	}
 
-		String productos = JOptionPane.showInputDialog("Inserte el codigo de los productos que ofrece el proveedor separados por comas");
 
-		String[] barCodes = productos.split(",");
-		
-		String calificaciones = JOptionPane.showInputDialog("Inserte las calificaciones de los productos que ofrece el proveedor separados por comas");
+	public void registrarCategoria() {
 
-		String[] calif = calificaciones.split(",");
-		
-		String precios = JOptionPane.showInputDialog("Inserte los precios de los productos que ofrece el proveedor separados por comas");
+		try {
 
-		String[] prec = precios.split(",");
-		
-		
-		
-		for (int j = 0; j < barCodes.length; j++) {
+			String nombreCategoria = JOptionPane.showInputDialog(this, "Ingrese el nombre de la categoría a registrar");
+
+			superAndes.registrarCategoria(nombreCategoria);
 			
-			superAndes.registrarProductoAProveedor(barCodes[j], nit, calif[j], prec[j]);			
+			
+			String resultado = "Se ha registrado la categoria";
+			
+			panelDatos.actualizarInterfaz(resultado);
+		}
+
+		catch(Exception e){
+			
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+
 		}
 
 	}
@@ -618,18 +660,18 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 	public void verProductos() {
 
 		List<Object[]> productos = superAndes.darElementos(PersistenciaSuperAndes.darTablaProducto());
-		
+
 		String[] options = new String[productos.size()];
 
 		int i = 0;
-		
+
 		for (Object[] objects : productos) {
 
 			options[i] = objects[0]+" - "+objects[1]+"\n";
-			
+
 			i++;
 		}
-		
+
 		ImageIcon icon = new ImageIcon("https://image.flaticon.com/icons/png/512/16/16075.png");
 
 		String opcion = (String) JOptionPane.showInputDialog(this, "Productos","Ver productos",JOptionPane.QUESTION_MESSAGE, icon ,options, options[0]);
@@ -650,7 +692,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 			String cantidad = JOptionPane.showInputDialog (this, "Cantidades de los productos? Separados por comas", "Registrar producto", JOptionPane.QUESTION_MESSAGE);
 			String unidadMedida = JOptionPane.showInputDialog (this, "Unidades de medida de los productos? Separados por comas", "Registrar producto", JOptionPane.QUESTION_MESSAGE);
 			String especificacionEmpecado = JOptionPane.showInputDialog (this, "Especificaciones empacado de los productos? Separados por comas", "Registrar producto", JOptionPane.QUESTION_MESSAGE);
-
+			
 			String[] codigosBarras=codigoBarra.split(",");
 			String[] nombres=nombre.split(",");
 			String[] presentaciones=presentacion.split(",");
