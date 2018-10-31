@@ -241,12 +241,7 @@ ALTER TABLE PaqueteDeProductosPromo
 ALTER TABLE Bodega
     ADD FOREIGN KEY (idCategoria)
     REFERENCES Categoria(idCategoria)
-;    
-
-ALTER TABLE Bodega
-    ADD FOREIGN KEY (idProducto)
-    REFERENCES Producto(codigoDeBarras)
-;
+;  
 
 ALTER TABLE Estante
     ADD FOREIGN KEY (idCategoria)
@@ -255,10 +250,6 @@ ALTER TABLE Estante
 ALTER TABLE Pedido 
     ADD FOREIGN KEY  (idSucursal)
     REFERENCES Sucursal(idSucursal)
-;
-ALTER TABLE Estante
-    ADD FOREIGN KEY (idProducto)
-    REFERENCES Producto(codigoDeBarras)
 ;
     
 ALTER TABLE VentaProducto
@@ -392,16 +383,22 @@ ALTER TABLE Producto
 ;
 
 ALTER TABLE ProductosBodega
-    ADD FOREIGN KEY (idBodega)
-    REFERENCES Bodega (idBodega)
+    ADD FOREIGN KEY (idSucursal, idBodega)
+    REFERENCES Bodega (idSucursal, id)
+;
+
+ALTER TABLE ProductosBodega
     ADD FOREIGN KEY (idSucursal , codigoBarras)
     REFERENCES ProductoOfrecidoSucursal (idSucursal , codigoBarras)
 ;
 
 ALTER TABLE ProductosEstante
-    ADD FOREIGN KEY (idEstante)
-    REFERENCES Estante (id)
-    ADD FOREIGN KEY (idSucursal , codigoBarras)
+    ADD FOREIGN KEY (idSucursal, idEstante)
+    REFERENCES Estante (idSucursal, id)   
+;
+
+ALTER TABLE ProductosEstante
+ ADD FOREIGN KEY (idSucursal , codigoBarras)
     REFERENCES ProductoOfrecidoSucursal (idSucursal , codigoBarras)
 ;
 
