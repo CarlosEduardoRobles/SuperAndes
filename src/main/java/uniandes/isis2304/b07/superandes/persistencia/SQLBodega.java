@@ -5,7 +5,6 @@ import javax.jdo.Query;
 
 public class SQLBodega 
 {
-	// TODO Hacer esta clase.
 	// -----------------------------------------------------------
 	// -------------------------Constantes------------------------
 	// -----------------------------------------------------------
@@ -32,12 +31,11 @@ public class SQLBodega
 		this.pp = pp;
 	}
 	
-	public long adicionarBodega(PersistenceManager pm, long id, long idSucursal, long idCategoria, long idProducto, Double volumenMaximo,
-			Double pesoMaximo) 
+	public long adicionarBodega(PersistenceManager pm, long id, long idSucursal, long idCategoria, Double volumenMaximo, Double pesoMaximo) 
 	{		
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaBodega()+"(id, idSucursal,idCategoria, volumenMaximo "
-				+ ",pesoMaximo, idProducto) values (?, ?, ?, ?, ?, ?)");
-		q.setParameters(id, idSucursal,idCategoria, volumenMaximo, pesoMaximo, idProducto);
+				+ ",pesoMaximo) values (?, ?, ?, ?, ?, ?)");
+		q.setParameters(id, idSucursal,idCategoria, volumenMaximo, pesoMaximo);
 		return (long) q.executeUnique();
 	}
 	
@@ -46,6 +44,6 @@ public class SQLBodega
 		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBodega() + " WHERE id = ?");
 	    q.setParameters(id);
 	    return (long) q.executeUnique();
-	}
+	}	
 }
 

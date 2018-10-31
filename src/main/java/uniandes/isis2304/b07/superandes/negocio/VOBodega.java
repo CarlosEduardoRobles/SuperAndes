@@ -2,7 +2,6 @@ package uniandes.isis2304.b07.superandes.negocio;
 
 public interface VOBodega 
 {
-	//TODO Hacer interface.
 	/**
 	 * Devuelve el id de la bodega.
 	 * @return
@@ -20,12 +19,6 @@ public interface VOBodega
 	 * @return el id de la categoria asociada a esta bodega.
 	 */
 	public long getIdCategoria();
-	
-	/**
-	 * Devuelve el id del producto almacenado en la bodega.
-	 * @return el id del producto almacenado en la bodega.
-	 */
-	public long getIdProducto();
 	
 	/**
 	 * Devuelve el valor actual del volumen almacenado en la bodega.

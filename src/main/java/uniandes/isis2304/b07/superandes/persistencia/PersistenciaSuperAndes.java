@@ -343,7 +343,7 @@ public class PersistenciaSuperAndes {
 	private void crearClasesSQL ()
 	{
 		sqlBodega = new SQLBodega(this);	sqlCategoria = new SQLCategoria(this);	sqlCategoriaProducto = new SQLCategoriaProducto(this);
-		sqlCliente = new SQLCliente(this);	sqlDescPorcentajePromo = new SQLDescPorcentajePromo(this);	sqlEstante = new SQLEstante(this);
+		sqlCliente = new SQLCliente(this);	sqlDescPorcentajePromo = new SQLDescPorcentajePromo(this);	/* TODO No olvidad descomentar sqlEstante = new SQLEstante(this);*/
 		sqlFactura = new SQLFactura(this);	sqlLegadaPedido = new SQLLegadaPedido(this);	sqlPague1Lleve2ConDescPromo = new SQLPague1Lleve2ConDescPromo(this);
 		sqlPagueNUnidadesLleveMPromo = new SQLPagueNUnidadesLleveMPromo(this);	sqlProductoPromocion = new SQLProductoPromocion(this);
 		sqlSucursal=new SQLSucursal(this);	sqlPagueXCantidadLleveYPromo = new SQLPagueXCantidadLleveYPromo(this);	sqlPedido = new SQLPedido(this);
@@ -531,7 +531,7 @@ public class PersistenciaSuperAndes {
 
 	public Estante registrarEstante(long idSucursal, double capacidadVolumen, double capacidadTotalVolumen, double capacidadPeso, double capacidadTotalPeso)
 	{
-		PersistenceManager pm = pmf.getPersistenceManager();
+		/*PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try 
 		{
@@ -554,7 +554,8 @@ public class PersistenciaSuperAndes {
 				tx.rollback();
 			}
 			pm.close();
-		}
+		}*/
+		return null;
 	}
 
 

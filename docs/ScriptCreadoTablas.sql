@@ -38,29 +38,45 @@ CREATE TABLE ProductoOfrecidoSucursal
 
 CREATE TABLE Estante
 (
-    idSucursal INTEGER NOT NULL,
+    id INTEGER NOT NULL,
+    idSucursal INTEGER NOT NULL,   
+    idCategoria INTEGER NOT NULL,
+    volumenActual NUMBER NOT NULL,
+    volumenMaximo NUMBER NOT NULL,
+    pesoActual NUMBER NOT NULL,
+    pesoMaximo NUMBER NOT NULL,
+    nivelDeAbastecimiento INTEGER NOT NULL,
+    CONSTRAINT estante_pk PRIMARY KEY(idSucursal, id)
+);
+
+CREATE TABLE ProductosEstante
+(
     idEstante INTEGER NOT NULL,
-    tipoproductoID INTEGER,
-    capacidadVolumen INTEGER,
-    capacidadTotalVolumen INTEGER,
-    capacidadPeso INTEGER,
-    capacidadTotalPeso INTEGER,
-    nivelDeAbastecimiento INTEGER,
-    idProducto VARCHAR(20),
-    CONSTRAINT estante_pk PRIMARY KEY(idSucursal, idEstante)
+    idSucursal INTEGER NOT NULL,
+    codigoBarras INTEGER NOT NULL,
+    cantidadProducto INTEGER NOT NULL,
+    CONSTRAINT productosestante_pk PRIMARY KEY (idEstante, idSucursal, codigoBarras)
 );
 
 CREATE TABLE Bodega
-(
-    idSucursal INTEGER NOT NULL,
+(    
     id INTEGER NOT NULL,
-    idCategoria INTEGER,
-    volumenActual INTEGER,
-    volumenMaximo INTEGER,
-    pesoActual INTEGER,
-    pesoMaximo INTEGER,
-    idProducto VARCHAR(20),
+    idSucursal INTEGER NOT NULL,
+    idCategoria INTEGER NOT NULL,
+    volumenActual NUMBER NOT NULL,
+    volumenMaximo NUMBER NOT NULL,
+    pesoActual NUMBER NOT NULL,
+    pesoMaximo NUMBER NOT NULL,
     CONSTRAINT bodega_pk PRIMARY KEY(idSucursal, id)
+);
+
+CREATE TABLE ProductosBodega
+(
+    idBodega INTEGER NOT NULL,
+    idSucursal INTEGER NOT NULL,
+    codigoBarras INTEGER NOT NULL,
+    cantidadProducto INTEGER NOT NULL,
+    CONSTRAINT productosbodega_pk PRIMARY KEY (idBodega, idSucursal, codigoBarras)
 );
 
 CREATE TABLE Categoria
@@ -68,22 +84,6 @@ CREATE TABLE Categoria
     idCategoria INTEGER NOT NULL,
     tipoCat VARCHAR(20),
     CONSTRAINT categoria_pk PRIMARY KEY(idCategoria)
-);
-
-CREATE TABLE RestriccionEstante
-(
-    idSucursal INTEGER NOT NULL,
-    id INTEGER NOT NULL,
-    idCategoria INTEGER NOT NULL,
-    CONSTRAINT restriccionestante_pk PRIMARY KEY(idSucursal, id, idCategoria)
-);
-
-CREATE TABLE RestriccionBodega
-(
-    idSucursal INTEGER NOT NULL,
-    id INTEGER NOT NULL,
-    idCategoria INTEGER NOT NULL,
-    CONSTRAINT restriccionbodega_pk PRIMARY KEY(idSucursal, id, idCategoria)
 );
 
 CREATE TABLE Pedido
@@ -249,7 +249,7 @@ ALTER TABLE Bodega
 ;
 
 ALTER TABLE Estante
-    ADD FOREIGN KEY (tipoproductoID)
+    ADD FOREIGN KEY (idCategoria)
     REFERENCES Categoria(idCategoria)
 ;    
 ALTER TABLE Pedido 
@@ -366,28 +366,6 @@ ALTER TABLE LlegadaPedido
     ADD    FOREIGN KEY (idsucursal)
     REFERENCES Sucursal(idSucursal)
 ;
-
-    
-ALTER TABLE RestriccionEstante
-    ADD    FOREIGN KEY (idSucursal, id)
-    REFERENCES Estante(idSucursal, idEstante)
-;
-
-ALTER TABLE RestriccionEstante
-    ADD    FOREIGN KEY (idCategoria)
-    REFERENCES Categoria(idCategoria)
-;
-    
-ALTER TABLE RestriccionBodega
-    ADD    FOREIGN KEY (idSucursal, id)
-    REFERENCES Bodega(idSucursal, id)
-;
-    
-ALTER TABLE RestriccionBodega
-    ADD    FOREIGN KEY (idCategoria)
-    REFERENCES Categoria(idCategoria)
-;    
-
     
 ALTER TABLE ProductoPedido
     ADD    FOREIGN KEY (codigoPedido)
@@ -413,6 +391,19 @@ ALTER TABLE Producto
     REFERENCES Categoria(idCategoria)
 ;
 
+ALTER TABLE ProductosBodega
+    ADD FOREIGN KEY (idBodega)
+    REFERENCES Bodega (idBodega)
+    ADD FOREIGN KEY (idSucursal , codigoBarras)
+    REFERENCES ProductoOfrecidoSucursal (idSucursal , codigoBarras)
+;
+
+ALTER TABLE ProductosEstante
+    ADD FOREIGN KEY (idEstante)
+    REFERENCES Estante (id)
+    ADD FOREIGN KEY (idSucursal , codigoBarras)
+    REFERENCES ProductoOfrecidoSucursal (idSucursal , codigoBarras)
+;
 
 -- Restricciones 
 

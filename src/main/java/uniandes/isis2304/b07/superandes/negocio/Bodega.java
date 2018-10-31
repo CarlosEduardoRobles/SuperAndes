@@ -7,9 +7,7 @@ public class Bodega implements VOBodega
 	//-----------------------------------------------------------		
 	private long id /*Id de la bodega*/, 
 		idSucursal /*Id de la sucursal a la que pertenece la bodega*/, 
-		idCategoria /*Id de la categoria que posee la bodega*/,
-		idProducto /*Id del producto almacenado*/;
-	
+		idCategoria /*Id de la categoria que posee la bodega*/;	
 	
 	private Double volumenActual /*Volumen actual de productos almacenados en la bodega*/,
 		volumenMaximo /*Volumen maximo que puede almacenarse*/,
@@ -50,7 +48,6 @@ public class Bodega implements VOBodega
 		this.id = id;
 		this.idSucursal = idSucursal;
 		this.idCategoria = idCategoria;
-		this.idProducto = idProducto;
 		this.volumenActual = volumenActual;
 		this.volumenMaximo = volumenMaximo;
 		this.pesoActual = pesoActual;
@@ -73,7 +70,6 @@ public class Bodega implements VOBodega
 		this.id = id;
 		this.idSucursal = idSucursal;
 		this.idCategoria = idCategoria;
-		this.idProducto = idProducto;
 		this.volumenActual = 0.0;
 		this.volumenMaximo = volumenMaximo;
 		this.pesoActual = 0.0;
@@ -106,14 +102,6 @@ public class Bodega implements VOBodega
 	 * @param idCategoria - id de la categoria que tiene la bodega.
 	 */
 	public void setIdCategoria(long idCategoria) {this.idCategoria = idCategoria;}
-	
-	public long getIdProducto() {return idProducto;}	
-
-	/**
-	 * Asigna el id del producto alamacenado en la bodega.
-	 * @param idProducto - id del producto alamacenado en la bodega.
-	 */
-	public void setIdProducto(long idProducto) {this.idProducto = idProducto;}
 
 	public Double getVolumenActual() {return volumenActual;}
 

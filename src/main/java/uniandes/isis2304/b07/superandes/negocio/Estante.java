@@ -1,180 +1,140 @@
 package uniandes.isis2304.b07.superandes.negocio;
 
-public class Estante implements VOEstante{
+public class Estante implements VOEstante
+{
+	//-----------------------------------------------------------
+	//-------------------------Atributos-------------------------
+	//-----------------------------------------------------------		
+	private long id /*Id del estante*/, 
+		idSucursal /*Id de la sucursal a la que pertenece la bodega*/, 
+		idCategoria /*Id de la categoria que posee la bodega*/;	
+		
+	private Double volumenActual /*Volumen actual de productos almacenados en la bodega*/,
+		volumenMaximo /*Volumen maximo que puede almacenarse*/,
+		pesoActual /*Peso actual de los productos almacenados en la bodega*/,
+		pesoMaximo /*Peso maximo que puede almacenarse*/;
 	
-	/* ****************************************************************
-	 * 			Atributos
-	 *****************************************************************/
-	private long idSucursal;
+	private Integer nivelDeAbastecimiento /*Nivel de abastecimiento del estante*/;
 	
-	private long id;
+	//-----------------------------------------------------------
+	//-----------------------Constructores-----------------------
+	//-----------------------------------------------------------
+	public Estante() 
+	{
+		this.id = 0;
+		this.idSucursal = 0;
+		this.idCategoria = 0;
+		this.volumenActual = 0.0;
+		this.volumenMaximo = 0.0;
+		this.pesoActual = 0.0;
+		this.pesoMaximo = 0.0;
+		this.nivelDeAbastecimiento = 0;
+	}
 	
-	private String nombre;
-	
-	private long idTipoProducto;
-	
-	private double capacidadVolumen;
-	
-	private double capacidadTotalVolumen;
-	
-	private double capacidadPeso;
-	
-	private double capacidadTotalPeso;
-	
-	private double nivelDeAbastecimiento;
-
-	
-	
-	
-	public Estante(long idSucursal, long id, String nombre, long idTipoProducto, double capacidadVolumen,
-			double capacidadTotalVolumen, double capacidadPeso, double capacidadTotalPeso,
-			double nivelDeAbastecimiento) {
-		this.idSucursal = idSucursal;
+	public Estante(long id, long idSucursal, long idCategoria,
+			Double volumenActual, Double volumenMaximo, Double pesoActual,
+			Double pesoMaximo, Integer nivelDeAbastecimiento) 
+	{
 		this.id = id;
-		this.nombre = nombre;
-		this.idTipoProducto = idTipoProducto;
-		this.capacidadVolumen = capacidadVolumen;
-		this.capacidadTotalVolumen = capacidadTotalVolumen;
-		this.capacidadPeso = capacidadPeso;
-		this.capacidadTotalPeso = capacidadTotalPeso;
+		this.idSucursal = idSucursal;
+		this.idCategoria = idCategoria;
+		this.volumenActual = volumenActual;
+		this.volumenMaximo = volumenMaximo;
+		this.pesoActual = pesoActual;
+		this.pesoMaximo = pesoMaximo;
+		this.nivelDeAbastecimiento = nivelDeAbastecimiento;
+	}	
+	
+	public Estante(long id, long idSucursal, long idCategoria,Double volumenMaximo,
+			Double pesoMaximo, Integer nivelDeAbastecimiento) 
+	{
+		this.id = id;
+		this.idSucursal = idSucursal;
+		this.idCategoria = idCategoria;
+		this.volumenActual = 0.0;
+		this.volumenMaximo = volumenMaximo;
+		this.pesoActual = 0.0;
+		this.pesoMaximo = pesoMaximo;
 		this.nivelDeAbastecimiento = nivelDeAbastecimiento;
 	}
 
+
+	//-----------------------------------------------------------
+	//--------------------------Metodos--------------------------
+	//-----------------------------------------------------------
+	public long getId() {return id;}
+	
 	/**
-	 * @return the idSucursal
+	 * Asigna el id del estante.
+	 * @param id - id del estante.
 	 */
-	public long getIdSucursal() {
-		return idSucursal;
-	}
+	public void setId(long id) {this.id = id;}
+
+	public long getIdSucursal() {return idSucursal;}
 
 	/**
-	 * @param idSucursal the idSucursal to set
+	 * Asigna el id de la sucursal a la que pertenece el estante.
+	 * @param idSucursal -  id de la sucursal a la que pertenece el estante.
 	 */
-	public void setIdSucursal(long idSucursal) {
-		this.idSucursal = idSucursal;
-	}
+	public void setIdSucursal(long idSucursal) {this.idSucursal = idSucursal;}
+
+	public long getIdCategoria() {return idCategoria;}	
 
 	/**
-	 * @return the id
+	 * Asigna el id de la categoria que tiene el estante.
+	 * @param idCategoria - id de la categoria que tiene el estante.
 	 */
-	public long getId() {
-		return id;
-	}
+	public void setIdCategoria(long idCategoria) {this.idCategoria = idCategoria;}
+
+	public Double getVolumenActual() {return volumenActual;}
 
 	/**
-	 * @param id the id to set
+	 * Asigna el volumen que posee actualmente el estante.. Se asume que esta en m3
+	 * @param volumenActual - el volumen que posee actualmente el estante.
 	 */
-	public void setId(long id) {
-		this.id = id;
-	}
+	public void setVolumenActual(Double volumenActual) {this.volumenActual = volumenActual;}
+
+	public Double getVolumenMaximo() {return volumenMaximo;}
 
 	/**
-	 * @return the nombre
+	 * Asigna el volumen maximo que puede poseer el estante.. Se asume que esta en m3
+	 * @param volumenMaximo - el volumen maximo que puede poseer el estante..
 	 */
-	public String getNombre() {
-		return nombre;
-	}
+	public void setVolumenMaximo(Double volumenMaximo) {this.volumenMaximo = volumenMaximo;}
+
+	public Double getPesoActual() {return pesoActual;}
 
 	/**
-	 * @param nombre the nombre to set
+	 * Asigna el peso que posee acutalmente el estante. Se asume que esta en Kg
+	 * @param pesoActual - el peso que posee acutalmente el estante.
 	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+	public void setPesoActual(Double pesoActual) {this.pesoActual = pesoActual;}
+
+	public Double getPesoMaximo() {return pesoMaximo;}
 
 	/**
-	 * @return the idTipoProducto
+	 * Asigna el peso maximo que puede poseer el estante. Se asume que estan en Kg
+	 * @param pesoMaximo - el peso maximo que puede poseer el estante.
 	 */
-	public long getIdTipoProducto() {
-		return idTipoProducto;
-	}
-
+	public void setPesoMaximo(Double pesoMaximo) {this.pesoMaximo = pesoMaximo;}
+	
+	public Integer getNivelDeAbastecimiento() {return nivelDeAbastecimiento;}
+	
 	/**
-	 * @param idTipoProducto the idTipoProducto to set
+	 * Asigna el nivel de abastecimiento del estante. 
+	 * @param nivelDeAbastecimiento - el nivel de abastecimiento del estante. 
 	 */
-	public void setIdTipoProducto(long idTipoProducto) {
-		this.idTipoProducto = idTipoProducto;
-	}
-
-	/**
-	 * @return the capacidadVolumen
-	 */
-	public double getCapacidadVolumen() {
-		return capacidadVolumen;
-	}
-
-	/**
-	 * @param capacidadVolumen the capacidadVolumen to set
-	 */
-	public void setCapacidadVolumen(double capacidadVolumen) {
-		this.capacidadVolumen = capacidadVolumen;
-	}
-
-	/**
-	 * @return the capacidadTotalVolumen
-	 */
-	public double getCapacidadTotalVolumen() {
-		return capacidadTotalVolumen;
-	}
-
-	/**
-	 * @param capacidadTotalVolumen the capacidadTotalVolumen to set
-	 */
-	public void setCapacidadTotalVolumen(double capacidadTotalVolumen) {
-		this.capacidadTotalVolumen = capacidadTotalVolumen;
-	}
-
-	/**
-	 * @return the capacidadPeso
-	 */
-	public double getCapacidadPeso() {
-		return capacidadPeso;
-	}
-
-	/**
-	 * @param capacidadPeso the capacidadPeso to set
-	 */
-	public void setCapacidadPeso(double capacidadPeso) {
-		this.capacidadPeso = capacidadPeso;
-	}
-
-	/**
-	 * @return the capacidadTotalPeso
-	 */
-	public double getCapacidadTotalPeso() {
-		return capacidadTotalPeso;
-	}
-
-	/**
-	 * @param capacidadTotalPeso the capacidadTotalPeso to set
-	 */
-	public void setCapacidadTotalPeso(double capacidadTotalPeso) {
-		this.capacidadTotalPeso = capacidadTotalPeso;
-	}
-
-	/**
-	 * @return the nivelDeAbastecimiento
-	 */
-	public double getNivelDeAbastecimiento() {
-		return nivelDeAbastecimiento;
-	}
-
-	/**
-	 * @param nivelDeAbastecimiento the nivelDeAbastecimiento to set
-	 */
-	public void setNivelDeAbastecimiento(double nivelDeAbastecimiento) {
-		this.nivelDeAbastecimiento = nivelDeAbastecimiento;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	public void setNivelDeAbastecimiento(Integer nivelDeAbastecimiento) 
+		{this.nivelDeAbastecimiento = nivelDeAbastecimiento;}
+	
 	@Override
-	public String toString() {
-		return "Estante [idSucursal=" + idSucursal + ", id=" + id + ", nombre=" + nombre + ", idTipoProducto="
-				+ idTipoProducto + ", capacidadVolumen=" + capacidadVolumen + ", capacidadTotalVolumen="
-				+ capacidadTotalVolumen + ", capacidadPeso=" + capacidadPeso + ", capacidadTotalPeso="
-				+ capacidadTotalPeso + ", nivelDeAbastecimiento=" + nivelDeAbastecimiento + "]";
+	public String toString() 
+	{
+		return "Estante [id=" + id + ", idSucursal=" + idSucursal
+				+ ", idCategoria=" + idCategoria + ", volumenActual="
+				+ volumenActual + ", volumenMaximo=" + volumenMaximo
+				+ ", pesoActual=" + pesoActual + ", pesoMaximo=" + pesoMaximo
+				+ ", nivelDeAbastecimiento=" + nivelDeAbastecimiento + "]";
 	}
 	
 	

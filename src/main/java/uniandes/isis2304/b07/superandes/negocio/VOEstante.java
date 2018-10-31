@@ -1,67 +1,60 @@
 package uniandes.isis2304.b07.superandes.negocio;
 
-public interface VOEstante {
-	
-	/* ****************************************************************
-	 * 			Métodos
-	 *****************************************************************/
-	
+public interface VOEstante 
+{
 	/**
-	 * @return el id de la sucursal del estante
-	 */
-	public long getIdSucursal();
-	
-	/**
-	 * @return el id del estante
+	 * Devuelve el id de la bodega.
+	 * @return
 	 */
 	public long getId();
 	
 	/**
-	 * @return nombre del estante
+	 * Devuelve el id de la sucursal a la que pertenece la bodega.
+	 * @return el id de la sucursal a la que pertenece la bodega.
 	 */
-	public String getNombre();
+	public long getIdSucursal();
 	
 	/**
-	 * @return el id del tipo producto del estante
+	 * Devuelve el id de la categoria asociada a esta bodega.
+	 * @return el id de la categoria asociada a esta bodega.
 	 */
-	public long getIdTipoProducto();
+	public long getIdCategoria();
 	
 	/**
-	 * @return la capacidad actual en volumen
+	 * Devuelve el valor actual del volumen almacenado en la bodega.
+	 * @return el valor actual del volumen almacenado en la bodega.
 	 */
-	public double getCapacidadVolumen();
+	public Double getVolumenActual();
 	
 	/**
-	 * @return la capacidad maxima en volumen
+	 * Devuelve el volumen maximo que puede tener la bodega
+	 * @return el volumen maximo que puede tener la bodega
 	 */
-	public double getCapacidadTotalVolumen();
+	public Double getVolumenMaximo();
 	
 	/**
-	 * @return la capacidad actual en peso
+	 * Devuelve el valor actual del peso almacenado en la bodega.
+	 * @return el valor actual del peso almacenado en la bodega.
 	 */
-	public double getCapacidadPeso();
+	public Double getPesoActual();
 	
 	/**
-	 * @return la capacidad maxima en peso
+	 * Devuelve el peso maximo que puede tener la bodega.
+	 * @return el peso maximo que puede tener la bodega.
 	 */
-	public double getCapacidadTotalPeso();
+	public Double getPesoMaximo();	
 	
 	/**
-	 * @return el nivel de abastecimiento del estante
+	 * Devuelve el nivel de abastecimiento de un estante.
+	 * Este representa la cantidad minima de productos que puede
+	 * haber en un estante.
+	 * @return el nivel de abastecimiento de un estante.
 	 */
-	public double getNivelDeAbastecimiento();
+	public Integer getNivelDeAbastecimiento();
 	
 	/**
-	 * @return Una cadena de caracteres con la información del estante
+	 * Metodo toString.
+	 * @return metodoToString.
 	 */
-	@Override
-	public String toString(); 
-
-	/**
-	 * Define la igualdad dos Estantes
-	 * @param b - El estante a comparar
-	 * @return true si tienen el mismo identificador 
-	 */
-	@Override
-	public boolean equals (Object b); 
+	public String toString();	
 }
