@@ -40,7 +40,7 @@ CREATE TABLE Estante
 (
     idSucursal INTEGER NOT NULL,
     idEstante INTEGER NOT NULL,
-    tipoproductoID INTEGER,
+    idCategoria INTEGER,
     capacidadVolumen INTEGER,
     capacidadTotalVolumen INTEGER,
     capacidadPeso INTEGER,
@@ -249,7 +249,7 @@ ALTER TABLE Bodega
 ;
 
 ALTER TABLE Estante
-    ADD FOREIGN KEY (tipoproductoID)
+    ADD FOREIGN KEY (idCategoria)
     REFERENCES Categoria(idCategoria)
 ;    
 ALTER TABLE Pedido 
