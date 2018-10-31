@@ -42,7 +42,7 @@ public class SQLEstante
 		
 	public long eliminarEstantePorId(PersistenceManager pm, long id)
 	{
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBodega() + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaEstante() + " WHERE id = ?");
 	    q.setParameters(id);
 	    return (long) q.executeUnique();
 	}	
