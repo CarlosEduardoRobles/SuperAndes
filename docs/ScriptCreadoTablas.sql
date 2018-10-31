@@ -53,7 +53,7 @@ CREATE TABLE ProductosEstante
 (
     idEstante INTEGER NOT NULL,
     idSucursal INTEGER NOT NULL,
-    codigoBarras INTEGER NOT NULL,
+    codigoBarras VARCHAR(20) NOT NULL,
     cantidadProducto INTEGER NOT NULL,
     CONSTRAINT productosestante_pk PRIMARY KEY (idEstante, idSucursal, codigoBarras)
 );
@@ -74,7 +74,7 @@ CREATE TABLE ProductosBodega
 (
     idBodega INTEGER NOT NULL,
     idSucursal INTEGER NOT NULL,
-    codigoBarras INTEGER NOT NULL,
+    codigoBarras VARCHAR(20) NOT NULL,
     cantidadProducto INTEGER NOT NULL,
     CONSTRAINT productosbodega_pk PRIMARY KEY (idBodega, idSucursal, codigoBarras)
 );

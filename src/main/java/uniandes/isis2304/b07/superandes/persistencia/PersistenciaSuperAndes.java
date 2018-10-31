@@ -175,17 +175,7 @@ public class PersistenciaSuperAndes {
 	/**
 	 * Atributo para el acceso a la tabla PROVEEDOR de la BD.
 	 */
-	private SQLProveedor sqlProveedor;
-
-	/**
-	 * Atributo para el acceso a la tabla RESTICCIONBODEGA de la BD.
-	 */
-	private SQLRestriccionBodega sqlRestriccionBodega;
-
-	/**
-	 * Atributo para el acceso a la tabla RESTRICCIONESTANTE de la BD.
-	 */
-	private SQLRestriccionEstante sqlRestriccionEstante;
+	private SQLProveedor sqlProveedor;	
 
 	/**
 	 * Atributo para el acceso a la tabla SUCURSAL de la BD.
@@ -201,6 +191,17 @@ public class PersistenciaSuperAndes {
 	 * Atributo para el acceso a la tabla VENTAPRODUCTO de la BD.
 	 */
 	private SQLVentaProducto sqlVentaProducto;
+	
+	/**
+	 * Atributo para el acceso a la tabla PRODUCTOSBODEGA de la BD.
+	 */
+	private SQLProductosBodega sqlProductosBodega;
+	
+	/**
+	 * Atributo para el acceso a la tabla PRODUCTOSESTANTE de la BD.
+	 */
+	private SQLProductosEstante sqlProductosEstante;
+
 
 	private SQLPaqueteDeProductosPromo sqlPaqueteDeProductosPromo;
 
@@ -273,6 +274,11 @@ public class PersistenciaSuperAndes {
 	public static String darTablaVenta()	{ return "VENTA"; }
 
 	public static String darTablaVentaProducto()	{ return "VENTAPRODUCTO"; }
+	
+	public static String darTablaProductosBodega() { return "PRODUCTOSBODEGA";}
+	
+	public static String darTablaProductosEstante() { return "PRODUCTOSESTANTE";}
+
 
 	/**
 	 * Constructor privado, que recibe los nombres de las tablas en un objeto Json - Patrón SINGLETON
@@ -343,16 +349,15 @@ public class PersistenciaSuperAndes {
 	private void crearClasesSQL ()
 	{
 		sqlBodega = new SQLBodega(this);	sqlCategoria = new SQLCategoria(this);	sqlCategoriaProducto = new SQLCategoriaProducto(this);
-		sqlCliente = new SQLCliente(this);	sqlDescPorcentajePromo = new SQLDescPorcentajePromo(this);	/* TODO No olvidad descomentar sqlEstante = new SQLEstante(this);*/
+		sqlCliente = new SQLCliente(this);	sqlDescPorcentajePromo = new SQLDescPorcentajePromo(this); sqlEstante = new SQLEstante(this);
 		sqlFactura = new SQLFactura(this);	sqlLegadaPedido = new SQLLegadaPedido(this);	sqlPague1Lleve2ConDescPromo = new SQLPague1Lleve2ConDescPromo(this);
 		sqlPagueNUnidadesLleveMPromo = new SQLPagueNUnidadesLleveMPromo(this);	sqlProductoPromocion = new SQLProductoPromocion(this);
 		sqlSucursal=new SQLSucursal(this);	sqlPagueXCantidadLleveYPromo = new SQLPagueXCantidadLleveYPromo(this);	sqlPedido = new SQLPedido(this);
 		sqlPersonaJuridica = new SQLPersonaJuridica(this);	sqlProducto = new SQLProducto(this);	sqlProductoPedido = new SQLProductoPedido(this);
 		sqlProductoPromocion = new SQLProductoPromocion(this);	sqlProductoProveedor = new SQLProductoProveedor(this);	sqlProductoSucursal = new SQLProductoSucursal(this);
-		sqlPromocion = new SQLPromocion(this);	sqlProveedor = new SQLProveedor(this);	sqlRestriccionBodega = new SQLRestriccionBodega(this);		
-		sqlRestriccionEstante = new SQLRestriccionEstante(this);	sqlSucursal = new SQLSucursal(this);	sqlVenta = new SQLVenta(this);
+		sqlPromocion = new SQLPromocion(this);	sqlProveedor = new SQLProveedor(this); sqlSucursal = new SQLSucursal(this);	sqlVenta = new SQLVenta(this);
 		sqlVentaProducto = new SQLVentaProducto(this); sqlPaqueteDeProductosPromo = new SQLPaqueteDeProductosPromo(this); sqlUtil = new SQLUtil(this);
-		sqlElementos = new SQLElementos(this);
+		sqlElementos = new SQLElementos(this); sqlProductosBodega = new SQLProductosBodega(this); sqlProductosEstante = new SQLProductosEstante(this);
 		
 	}	
 	

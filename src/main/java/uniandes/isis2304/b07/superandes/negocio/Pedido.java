@@ -19,7 +19,6 @@ public class Pedido implements VOPedido{
 	
 	private String nitProveedor;
 
-	//TODO ¿Este constructor que?
 	public Pedido(PersistenceManager pm, String idSucursal, String[] codigosProductos, String nitProveedor2,
 			Timestamp fechaPrevista, double precioTotal2) 
 	{
