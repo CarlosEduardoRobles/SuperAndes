@@ -528,24 +528,18 @@ public class PersistenciaSuperAndes {
 
 	}
 
-	public Bodega registrarBodega()
+	public Bodega registrarBodega(long idSucursal, long idCategoria, Double volumenMaximo, Double pesoMaximo)
 	{
-		//TODO Hacer metodo.
-		return null;
-	}
-
-	public Estante registrarEstante(long idSucursal, double capacidadVolumen, double capacidadTotalVolumen, double capacidadPeso, double capacidadTotalPeso)
-	{
-		/*PersistenceManager pm = pmf.getPersistenceManager();
+		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try 
 		{
 			tx.begin();
-			long idEstante= nextval();	
-			long tuplasInsertadas = sqlEstante.insertarEstante(pm,idEstante,idSucursal,capacidadVolumen,capacidadTotalVolumen,capacidadPeso,capacidadTotalPeso);
+			long id= nextval();	
+			long tuplasInsertadas = sqlBodega.adicionarBodega(pm, id, idSucursal, idCategoria, volumenMaximo, pesoMaximo);
 			tx.commit();
-			log.trace ("Inserción de estante: " + idEstante + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Estante(idSucursal, idEstante, "", 0, capacidadVolumen, capacidadTotalVolumen, capacidadPeso, capacidadTotalPeso, 0);
+			log.trace ("Inserción de estante: " + id + ": " + tuplasInsertadas + " tuplas insertadas");
+			return new Bodega( id, idSucursal, idCategoria, volumenMaximo, pesoMaximo);
 		} 
 		catch (Exception e) 
 		{
@@ -559,8 +553,36 @@ public class PersistenciaSuperAndes {
 				tx.rollback();
 			}
 			pm.close();
-		}*/
-		return null;
+		}
+	}
+
+	public Estante registrarEstante(long idSucursal, long idCategoria, 
+			Double volumenMaximo, Double pesoMaximo, Integer nivelDeAbastecimiento)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try 
+		{
+			tx.begin();
+			long id= nextval();	
+			long tuplasInsertadas = sqlEstante.adicionarEstante(pm, id, idSucursal,idCategoria, volumenMaximo, pesoMaximo, nivelDeAbastecimiento);
+			tx.commit();
+			log.trace ("Inserción de estante: " + id + ": " + tuplasInsertadas + " tuplas insertadas");
+			return new Estante(id, idSucursal,idCategoria, volumenMaximo, pesoMaximo, nivelDeAbastecimiento);
+		} 
+		catch (Exception e) 
+		{
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
 	}
 
 
@@ -807,7 +829,7 @@ public class PersistenciaSuperAndes {
 		}
 	}
 
-	public Venta registrarVenta(String sucursal, String tipodocumento, String documento, String[] codigosProductos,
+	public Venta registrarVenta(long idSucursal, String tipodocumento, String documento, String[] codigosProductos,
 			String[] cantidad, String[] precios, double precioTotal, Date fecha) {
 
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -820,7 +842,7 @@ public class PersistenciaSuperAndes {
 
 			long numeroVenta = nextval();
 
-			long tuplasInsertadas = sqlVenta.adicionarVenta(pm, sucursal, numeroVenta, tipodocumento, documento, precioTotal, fecha);
+			long tuplasInsertadas = sqlVenta.adicionarVenta(pm, idSucursal, numeroVenta, tipodocumento, documento, precioTotal, fecha);
 
 			long tuplasInsertadas2 = 0;
 			
@@ -828,10 +850,10 @@ public class PersistenciaSuperAndes {
 			
 			long productosRemovidosBodega = 0;
 
-			for (int i = 0; i < codigosProductos.length; i++) {
-
-				tuplasInsertadas2 += sqlVentaProducto.adicionarVentaProducto(pm, numeroVenta, codigosProductos[i],cantidad[i]);
-
+			for (int i = 0; i < codigosProductos.length; i++) 
+			{
+				tuplasInsertadas2 += sqlVentaProducto.
+						adicionarVentaProducto(pm, numeroVenta, codigosProductos[i],cantidad[i]);
 			}
 
 			tx.commit();
@@ -939,7 +961,7 @@ public class PersistenciaSuperAndes {
 	 *****************************************************************/
 
 
-	public String[] obtenerPreciosSucursal(String sucursal, String[] productos) {
+	public String[] obtenerPreciosSucursal(long sucursal, String[] productos) {
 
 		PersistenceManager pm = pmf.getPersistenceManager();
 

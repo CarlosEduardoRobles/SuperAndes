@@ -915,18 +915,17 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 	{
 		try 
 		{
-			String nombre = JOptionPane.showInputDialog (this, "Nombre del estante?", "Registrar estante", JOptionPane.QUESTION_MESSAGE);
-
 			long idSucursal = Long.parseLong(JOptionPane.showInputDialog (this, "Id de la sucursal?", "Registrar estante", JOptionPane.QUESTION_MESSAGE));
-			double capacidadVolumen = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad actual en litros del estante?", "Registrar estante", JOptionPane.QUESTION_MESSAGE));
-			double capacidadTotalVolumen = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad maxima en litros del estante?", "Registrar estante", JOptionPane.QUESTION_MESSAGE));
-			double capacidadPeso = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad actual en kg del estante?", "Registrar estante", JOptionPane.QUESTION_MESSAGE));
-			double capacidadTotalPeso = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad maxima en kg del estante?", "Registrar estante", JOptionPane.QUESTION_MESSAGE));
+			long idCategoria = Long.parseLong(JOptionPane.showInputDialog (this, "Id de la categoria?", "Registrar estante", JOptionPane.QUESTION_MESSAGE));
+			double volumenMaximo = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad maxima en litros del estante?", "Registrar estante", JOptionPane.QUESTION_MESSAGE));
+			double pesoMaximo = Double.parseDouble(JOptionPane.showInputDialog (this, "Capacidad maxima en kg del estante?", "Registrar estante", JOptionPane.QUESTION_MESSAGE));
+			Integer nivelDeAbastecimiento = Integer.parseInt(JOptionPane.showInputDialog (this, "Nivel de abastecimiento?", "Registrar estante", JOptionPane.QUESTION_MESSAGE));
 
-
-			if (idSucursal != 0 && capacidadVolumen != 0 && capacidadTotalVolumen != 0 && capacidadPeso != 0 && capacidadTotalPeso != 0)
+			if (idSucursal != 0 && volumenMaximo != 0 && pesoMaximo != 0 && idCategoria != 0 
+					&& nivelDeAbastecimiento != 0)
 			{
-				VOEstante estante =superAndes.registrarEstante(idSucursal, nombre, capacidadVolumen, capacidadTotalVolumen, capacidadPeso, capacidadTotalPeso);
+				VOEstante estante =superAndes.registrarEstante( idSucursal,  idCategoria, 
+						 volumenMaximo,  pesoMaximo,  nivelDeAbastecimiento);
 				if (estante == null)
 				{
 					throw new Exception ("No se pudo registrar estante en sucursal: " + idSucursal);
@@ -1234,7 +1233,7 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 	{
 		try{
 
-			String sucursal = JOptionPane.showInputDialog (this, "Digite el id de la sucursal", "Registrar venta", JOptionPane.QUESTION_MESSAGE);
+			Long sucursal = Long.parseLong(JOptionPane.showInputDialog (this, "Digite el id de la sucursal", "Registrar venta", JOptionPane.QUESTION_MESSAGE));
 			java.util.Date fecha = new Date();			
 			String[] options2 = {"TI", "Cedula", "Pasaporte","NIT"};
 			ImageIcon icon = new ImageIcon("https://image.flaticon.com/icons/png/512/16/16075.png");

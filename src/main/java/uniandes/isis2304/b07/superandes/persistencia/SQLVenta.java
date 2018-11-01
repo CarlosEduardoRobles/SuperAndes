@@ -38,7 +38,7 @@ public class SQLVenta
 		this.pp = pp;
 	}
 
-	public long adicionarVenta(PersistenceManager pm, String sucursal, long numeroVenta, String documento,
+	public long adicionarVenta(PersistenceManager pm, long sucursal, long numeroVenta, String documento,
 			String documento2, double precioTotal, Date fecha) {
 		
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaVenta()+"(NUMEROVENTA,TIPODOCCLIENTE,NUMDOCCLIENTE,TOTALVENTA,FECHAVENTA,IDSUCURSAL) values (?,?,?,?,?,?)");

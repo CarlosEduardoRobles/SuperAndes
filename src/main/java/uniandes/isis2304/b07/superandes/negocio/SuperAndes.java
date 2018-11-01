@@ -116,10 +116,11 @@ public class SuperAndes {
 
 	}	
 
-	public Estante registrarEstante(long idSucursal, String nombre ,double capacidadVolumen, double capacidadTotalVolumen, double capacidadPeso, double capacidadTotalPeso)
+	public Estante registrarEstante(long idSucursal, long idCategoria, 
+			Double volumenMaximo, Double pesoMaximo, Integer nivelDeAbastecimiento)
 	{
 		log.info ("Registrando estante en la sucursal: " + idSucursal);
-		return pp.registrarEstante(idSucursal, capacidadVolumen, capacidadTotalVolumen, capacidadPeso, capacidadTotalPeso);
+		return pp.registrarEstante(idSucursal,idCategoria, volumenMaximo, pesoMaximo, nivelDeAbastecimiento);
 	}
 
 	public PagueNUnidadesLleveMPromo registrarPromocionPagueNLleveM(String codigoProducto, Timestamp fechaVencimientoPromocion, int compraUnidades, int llevaUnidades)
@@ -162,7 +163,7 @@ public class SuperAndes {
 	}
 
 
-	public Venta registrarVenta(String sucursal, String tipodocumento, String documento, String[] codigosProductos,
+	public Venta registrarVenta(long sucursal, String tipodocumento, String documento, String[] codigosProductos,
 			String[] cantidad, String[] precios, double precioTotal, Date fecha) {
 
 		return pp.registrarVenta(sucursal, tipodocumento, documento, codigosProductos, cantidad, precios, precioTotal,fecha);
@@ -171,7 +172,7 @@ public class SuperAndes {
 
 
 
-	public String[] obtenerPreciosSucursal(String sucursal, String[] productos) {
+	public String[] obtenerPreciosSucursal(long sucursal, String[] productos) {
 
 		return pp.obtenerPreciosSucursal(sucursal, productos);
 	}

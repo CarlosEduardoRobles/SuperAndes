@@ -38,7 +38,7 @@ public class SQLProductoSucursal {
 		this.pp = pp;
 	}
 
-	public String[] darPrecioProductosSucursal(PersistenceManager pm, String sucursal, String[] productos) {
+	public String[] darPrecioProductosSucursal(PersistenceManager pm, long sucursal, String[] productos) {
 		
 		String[] precios = new String[productos.length];
 				
