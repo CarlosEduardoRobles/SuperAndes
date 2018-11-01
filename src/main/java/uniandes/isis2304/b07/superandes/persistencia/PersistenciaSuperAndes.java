@@ -711,14 +711,14 @@ public class PersistenciaSuperAndes {
 		}
 	}
 
-	public long finalizarPromocion(Timestamp fecha)
+	public long finalizarPromocion()
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
 		try 
 		{
 			tx.begin();
-			long tuplasEliminadas=sqlPromocion.eliminarPromocion(pm, fecha);
+			long tuplasEliminadas=sqlPromocion.eliminarPromocion(pm);
 			log.trace ("Eliminacion de promocion, "  + tuplasEliminadas + " tuplas eliminadas");
 			tx.commit();
 			return tuplasEliminadas;
