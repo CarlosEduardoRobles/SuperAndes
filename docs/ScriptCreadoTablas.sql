@@ -3,13 +3,13 @@ create sequence SuperAndes_sequence;
 -- Crear tablas
 CREATE TABLE Producto
 (
-    codigoDeBarras VARCHAR(20) NOT NULL,
-    nombre VARCHAR(20),
-    presentacion VARCHAR(20),
-    marca VARCHAR(20),
+    codigoDeBarras VARCHAR(80) NOT NULL,
+    nombre VARCHAR(80),
+    presentacion VARCHAR(80),
+    marca VARCHAR(80),
     cantidad INTEGER,
-    unidadDeMedida VARCHAR(20),
-    especificacionEmpacado VARCHAR(20),
+    unidadDeMedida VARCHAR(80),
+    especificacionEmpacado VARCHAR(80),
     idCategoria INTEGER NOT NULL,
     CONSTRAINT producto_pk PRIMARY KEY(codigoDeBarras)
 );
@@ -17,18 +17,18 @@ CREATE TABLE Producto
 CREATE TABLE Sucursal
 (
     idSucursal INTEGER NOT NULL,
-    nombre VARCHAR(20),
-    segmentacion VARCHAR(20),
-    tamano VARCHAR(20),
-    ciudad VARCHAR(20),
-    direccion VARCHAR(20),
+    nombre VARCHAR(80),
+    segmentacion VARCHAR(80),
+    tamano VARCHAR(80),
+    ciudad VARCHAR(80),
+    direccion VARCHAR(80),
     CONSTRAINT sucursal_pk PRIMARY KEY(idSucursal)
 );
 
 CREATE TABLE ProductoOfrecidoSucursal
 (
     idSucursal INTEGER NOT NULL, 
-    codigoBarras VARCHAR(20) NOT NULL,
+    codigoBarras VARCHAR(80) NOT NULL,
     precioUnitario INTEGER,
     precioUnidadMedida INTEGER,
     nivelDeReorden INTEGER,
@@ -53,7 +53,7 @@ CREATE TABLE ProductosEstante
 (
     idEstante INTEGER NOT NULL,
     idSucursal INTEGER NOT NULL,
-    codigoBarras VARCHAR(20) NOT NULL,
+    codigoBarras VARCHAR(80) NOT NULL,
     cantidadProducto INTEGER NOT NULL,
     CONSTRAINT productosestante_pk PRIMARY KEY (idEstante, idSucursal, codigoBarras)
 );
@@ -74,7 +74,7 @@ CREATE TABLE ProductosBodega
 (
     idBodega INTEGER NOT NULL,
     idSucursal INTEGER NOT NULL,
-    codigoBarras VARCHAR(20) NOT NULL,
+    codigoBarras VARCHAR(80) NOT NULL,
     cantidadProducto INTEGER NOT NULL,
     CONSTRAINT productosbodega_pk PRIMARY KEY (idBodega, idSucursal, codigoBarras)
 );
@@ -82,7 +82,7 @@ CREATE TABLE ProductosBodega
 CREATE TABLE Categoria
 (
     idCategoria INTEGER NOT NULL,
-    tipoCat VARCHAR(20),
+    tipoCat VARCHAR(80),
     CONSTRAINT categoria_pk PRIMARY KEY(idCategoria)
 );
 
@@ -91,15 +91,15 @@ CREATE TABLE Pedido
     codigoPedido INTEGER NOT NULL,
     fechaEntrega DATE NOT NULL,
     precioTotal INTEGER,
-    estadoOrden VARCHAR(20),
-    NitProveedor VARCHAR(20),
+    estadoOrden VARCHAR(80),
+    NitProveedor VARCHAR(80),
     idSucursal NUMBER,
     CONSTRAINT pedido_pk PRIMARY KEY(codigoPedido)
 );
 
 CREATE TABLE ProductoPedido
 (
-    codigoProducto VARCHAR(20) NOT NULL,
+    codigoProducto VARCHAR(80) NOT NULL,
     codigoPedido INTEGER NOT NULL,
     volumen INTEGER,
     precio INTEGER,
@@ -108,17 +108,17 @@ CREATE TABLE ProductoPedido
 
 CREATE TABLE Proveedor
 (
-    NIT VARCHAR(20) NOT NULL,
-    nombre VARCHAR(20),
+    NIT VARCHAR(80) NOT NULL,
+    nombre VARCHAR(80),
     CONSTRAINT proveedor_pk PRIMARY KEY(NIT)
 );
 
 CREATE TABLE ProveedorProducto
 (
-    NitProveedor VARCHAR(20) NOT NULL,
-    codigoProducto VARCHAR(20) NOT NULL,
+    NitProveedor VARCHAR(80) NOT NULL,
+    codigoProducto VARCHAR(80) NOT NULL,
     precio INTEGER,
-    calificacionCalidad VARCHAR(20),
+    calificacionCalidad VARCHAR(80),
     CONSTRAINT proveedorproducto_pk PRIMARY KEY(NitProveedor, codigoProducto)
 );
 
@@ -128,33 +128,33 @@ CREATE TABLE LlegadaPedido
     idsucursal INTEGER,
     fechaEntrega DATE,
     cantidadProductos INTEGER,
-    calidadProductos VARCHAR(20),
-    calificacion VARCHAR(20),
+    calidadProductos VARCHAR(80),
+    calificacion VARCHAR(80),
     CONSTRAINT llegadapedido_pk PRIMARY KEY(codigoPedido)
 );
 
 CREATE TABLE Cliente
 (
-    tipoDocumento VARCHAR(20) NOT NULL,
-    numDocumento VARCHAR(20) NOT NULL,
-    nombre VARCHAR(20),
-    correo VARCHAR(20),
+    tipoDocumento VARCHAR(80) NOT NULL,
+    numDocumento VARCHAR(80) NOT NULL,
+    nombre VARCHAR(80),
+    correo VARCHAR(80),
     CONSTRAINT cliente_pk PRIMARY KEY(tipoDocumento, numDocumento)
 );
 
 CREATE TABLE PersonaJuridica
 (
-    tipoDocumento VARCHAR(20) NOT NULL,
-    numDocumento VARCHAR(20) NOT NULL,
-    direccion VARCHAR(20),
+    tipoDocumento VARCHAR(80) NOT NULL,
+    numDocumento VARCHAR(80) NOT NULL,
+    direccion VARCHAR(80),
     CONSTRAINT personajuridica_pk PRIMARY KEY(tipoDocumento, numDocumento)
 );
 
 CREATE TABLE Venta
 (
     numeroVenta INTEGER NOT NULL,
-    tipoDocCliente VARCHAR(20) NOT NULL,
-    numDocCliente VARCHAR(20) NOT NULL,
+    tipoDocCliente VARCHAR(80) NOT NULL,
+    numDocCliente VARCHAR(80) NOT NULL,
     idSucursal INTEGER NOT NULL,
     fechaVenta DATE,
     totalVenta INTEGER,    
@@ -164,14 +164,14 @@ CREATE TABLE Venta
 CREATE TABLE VentaProducto
 (
     numeroVenta INTEGER NOT NULL,
-    codigoProducto VARCHAR(20) NOT NULL,
+    codigoProducto VARCHAR(80) NOT NULL,
     unidades INTEGER,
     CONSTRAINT ventaproducto_pk PRIMARY KEY(numeroVenta, codigoProducto)
 );
 
 CREATE TABLE Promocion
 (
-    codigoPromocion VARCHAR(20) NOT NULL,
+    codigoPromocion VARCHAR(80) NOT NULL,
     tipoPromocion INTEGER,
     fechaTerminacion DATE,
     CONSTRAINT promocion_pk PRIMARY KEY(codigoPromocion)
@@ -180,21 +180,21 @@ CREATE TABLE Promocion
 CREATE TABLE VentaPromocion
 (
     numeroVenta INTEGER NOT NULL,
-    codigoPromo VARCHAR(20) NOT NULL,
+    codigoPromo VARCHAR(80) NOT NULL,
     unidades INTEGER,
     CONSTRAINT ventapromocion_pk PRIMARY KEY(numeroVenta, codigoPromo)
 );
 
 CREATE TABLE ProductoPromocion
 (
-    codigoPromocion VARCHAR(20) NOT NULL,
-    codigoProducto VARCHAR(20) NOT NULL,
+    codigoPromocion VARCHAR(80) NOT NULL,
+    codigoProducto VARCHAR(80) NOT NULL,
     CONSTRAINT productopromocion_pk PRIMARY KEY(codigoPromocion, codigoProducto)
 );
 
 CREATE TABLE PagueNUnidadesLleveMPromo
 (
-    codigoPromo VARCHAR(20) NOT NULL,
+    codigoPromo VARCHAR(80) NOT NULL,
     compraUnidades INTEGER NOT NULL,
     llevaUnidades INTEGER,
     CONSTRAINT paguenunidadesllevempromo_pk PRIMARY KEY(codigoPromo)
@@ -203,14 +203,14 @@ CREATE TABLE PagueNUnidadesLleveMPromo
 
 CREATE TABLE PaqueteDeProductosPromo
 (
-	codigoPromo VARCHAR(20) NOT NULL,
+	codigoPromo VARCHAR(80) NOT NULL,
 	precioPromo INTEGER NOT NULL,
 	CONSTRAINT paquetedeproductospromo_pk PRIMARY KEY (codigoPromo)
 );
 
 CREATE TABLE PagueXCantidadLleveYPromo
 (
-    codigoPromo VARCHAR(20) NOT NULL,
+    codigoPromo VARCHAR(80) NOT NULL,
     cantidadPaga INTEGER NOT NULL,
     cantidadLleva INTEGER,
     CONSTRAINT paguexcantidadlleveypromo_pk PRIMARY KEY(codigoPromo)
@@ -218,14 +218,14 @@ CREATE TABLE PagueXCantidadLleveYPromo
 
 CREATE TABLE DescPorcentajePromo
 (
-    codigoPromo VARCHAR(20) NOT NULL,
+    codigoPromo VARCHAR(80) NOT NULL,
     porcentajeDesc INTEGER,
     CONSTRAINT descporcentajepromo_pk PRIMARY KEY(codigoPromo)
 );
 
 CREATE TABLE Pague1Lleve2ConDescPromo
 (
-    codigoPromo VARCHAR(20) NOT NULL,
+    codigoPromo VARCHAR(80) NOT NULL,
     porcentajeDesc INTEGER,
     CONSTRAINT pague1lleve2condescpromo_pk PRIMARY KEY(codigoPromo)
 );
