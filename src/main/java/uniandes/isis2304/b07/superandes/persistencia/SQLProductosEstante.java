@@ -41,4 +41,22 @@ public class SQLProductosEstante
 		q.setParameters(idEstante, idSucursal, codigoBarras,cantidadProducto);
 		return (long) q.executeUnique();
 	}
+	
+	/**
+	 * Metodo para remover X unidades de un producto de un estante.
+	 * @param pm - PersistenceManager, Maneja la persistencia
+	 * @param idEstante - Id del estante al que se le removera el producto.
+	 * @param idSucursal - Id de la sucursal a la que se le removera el producto de su bodega.
+	 * @param codigoBarras - Producto al que se disminuira su cantidad en la bodega.
+	 * @param cantidadRemovida - La cantidad de productos que seran removidos.
+	 * @return long.
+	 */
+	public long quitarProductosEstante(PersistenceManager pm, long idEstante, long idSucursal, String codigoBarras,
+			Integer cantidadRemovida) 
+	{		
+		Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaProductosEstante() + " SET cantidadproducto = cantidadproducto - " + cantidadRemovida + " WHERE idEstante = ? AND "
+				+ "idSucursal = ? AND codigoBarras = ?");
+		q.setParameters(idEstante, idSucursal, codigoBarras);
+		return (long) q.executeUnique();
+	}
 }

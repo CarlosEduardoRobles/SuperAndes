@@ -8,6 +8,7 @@ public class LlegadaPedido implements VOLlegadaPedido{
 	 * 			Atributos
 	 *****************************************************************/
 	
+	//TODO ¿Que es esta clase? ¡Que representa la calidadProductos? Modificar SQL al tener rta.
 	public long id;
 	
 	public long idSucursal;

@@ -1120,10 +1120,10 @@ public class InterfazSuperAndesApp extends JFrame implements ActionListener
 			//Timestamp fecha = new Timestamp(d.getTime());
 
 
-
+			//TODO Revisar esto
 			/*if (fecha != null)
 			{*/
-				long eliminados =superAndes.finalizarPromocion();
+				long eliminados =superAndes.finalizarPromocionFechaActual();
 				String resultado = "En finalizarPromocion\n\n";
 				resultado += "Se eliminaron exitosamente: " + eliminados;
 				resultado += "\n Operación terminada";

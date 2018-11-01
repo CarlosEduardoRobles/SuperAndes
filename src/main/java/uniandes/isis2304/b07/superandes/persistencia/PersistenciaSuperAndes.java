@@ -711,14 +711,14 @@ public class PersistenciaSuperAndes {
 		}
 	}
 
-	public long finalizarPromocion()
+	public long finalizarPromocionFechaActual()
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
 		try 
 		{
 			tx.begin();
-			long tuplasEliminadas=sqlPromocion.eliminarPromocion(pm);
+			long tuplasEliminadas=sqlPromocion.eliminarPromocionFechaActual(pm);
 			log.trace ("Eliminacion de promocion, "  + tuplasEliminadas + " tuplas eliminadas");
 			tx.commit();
 			return tuplasEliminadas;
@@ -823,10 +823,15 @@ public class PersistenciaSuperAndes {
 			long tuplasInsertadas = sqlVenta.adicionarVenta(pm, sucursal, numeroVenta, tipodocumento, documento, precioTotal, fecha);
 
 			long tuplasInsertadas2 = 0;
+			
+			long productosRemovidosEstante = 0;
+			
+			long productosRemovidosBodega = 0;
 
 			for (int i = 0; i < codigosProductos.length; i++) {
 
-				tuplasInsertadas2 += sqlVentaProducto.adicionarVentaProducto(pm, numeroVenta, codigosProductos[i],cantidad[i]);		
+				tuplasInsertadas2 += sqlVentaProducto.adicionarVentaProducto(pm, numeroVenta, codigosProductos[i],cantidad[i]);
+
 			}
 
 			tx.commit();

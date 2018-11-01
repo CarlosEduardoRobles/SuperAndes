@@ -144,9 +144,9 @@ public class SuperAndes {
 	}
 
 
-	public long finalizarPromocion( )
+	public long finalizarPromocionFechaActual( )
 	{
-		return pp.finalizarPromocion();
+		return pp.finalizarPromocionFechaActual();
 	}
 
 	public Pedido registrarPedido(String idSucursal, String[] codigosProductos, String[] cantidad, String[] precios, String nitProveedor, Timestamp fechaPrevista, double precioTotal )

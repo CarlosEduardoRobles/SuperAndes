@@ -46,14 +46,28 @@ public class SQLPromocion
 	
 	//TODO Esta operacion se hace sin interaccion del usuario, sea cuando se vendieron todos los productos de
 	//la promocion o porque llego la fecha de vencimiento de la promoción.
-	public long eliminarPromocion(PersistenceManager pm)
+	public long eliminarPromocionFechaActual(PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL,"DELETE FROM "+ pp.darTablaPromocion()+ " "
 				+ "WHERE FECHATERMINACION = SYSDATE ");
 		return (long) q.executeUnique();
 	}	
 	
+	public long eliminarPromocionPorId(PersistenceManager pm, String codigoPromo)
+	{
+		Query q = pm.newQuery(SQL,"DELETE FROM "+ pp.darTablaPromocion()+ " "
+				+ "WHERE CODIGOPROMOCION = ? ");
+		q.setParameters(codigoPromo);
+		return (long) q.executeUnique();
+	}
 	
+	public long eliminarPromocionFechaIngresada(PersistenceManager pm, Timestamp fecha)
+	{
+		Query q = pm.newQuery(SQL,"DELETE FROM "+ pp.darTablaPromocion()+ " "
+				+ "WHERE FECHATERMINACION = ? ");
+		q.setParameters(fecha);
+		return (long) q.executeUnique();
+	}
 	
 	
 	

@@ -44,5 +44,23 @@ public class SQLProductosBodega
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaProductosBodega()+"(idBodega, idSucursal, codigoBarras,cantidadProducto) values (?,?,?,?)");
 		q.setParameters(idBodega, idSucursal, codigoBarras,cantidadProducto);
 		return (long) q.executeUnique();
+	}	
+	
+	/**
+	 * Metodo para remover X unidades de un producto de una Bodega.
+	 * @param pm - PersistenceManager, Maneja la persistencia
+	 * @param idBodega - Id de la bodega a la que se le removera el producto.
+	 * @param idSucursal - Id de la sucursal a la que se le removera el producto de su bodega.
+	 * @param codigoBarras - Producto al que se disminuira su cantidad en la bodega.
+	 * @param cantidadRemovida - La cantidad de productos que seran removidos.
+	 * @return long.
+	 */
+	public long quitarProductosBodega(PersistenceManager pm, long idBodega, long idSucursal, String codigoBarras,
+			Integer cantidadRemovida) 
+	{		
+		Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaProductosBodega() + " SET cantidadproducto = cantidadproducto - " + cantidadRemovida + " WHERE idBodega = ? AND "
+				+ "idSucursal = ? AND codigoBarras = ?");
+		q.setParameters(idBodega, idSucursal, codigoBarras);
+		return (long) q.executeUnique();
 	}
 }

@@ -7,7 +7,7 @@ CREATE TABLE Producto
     nombre VARCHAR(80),
     presentacion VARCHAR(80),
     marca VARCHAR(80),
-    cantidad INTEGER,
+    cantidad INTEGER  CHECK (cantidad > 0),
     unidadDeMedida VARCHAR(80),
     especificacionEmpacado VARCHAR(80),
     idCategoria INTEGER NOT NULL,
@@ -17,11 +17,11 @@ CREATE TABLE Producto
 CREATE TABLE Sucursal
 (
     idSucursal INTEGER NOT NULL,
-    nombre VARCHAR(80),
+    nombre VARCHAR(80) NOT NULL,
     segmentacion VARCHAR(80),
-    tamano VARCHAR(80),
-    ciudad VARCHAR(80),
-    direccion VARCHAR(80),
+    tamano VARCHAR(80) NOT NULL,
+    ciudad VARCHAR(80) NOT NULL,
+    direccion VARCHAR(80) NOT NULL,
     CONSTRAINT sucursal_pk PRIMARY KEY(idSucursal)
 );
 
@@ -29,10 +29,10 @@ CREATE TABLE ProductoOfrecidoSucursal
 (
     idSucursal INTEGER NOT NULL, 
     codigoBarras VARCHAR(80) NOT NULL,
-    precioUnitario INTEGER,
-    precioUnidadMedida INTEGER,
-    nivelDeReorden INTEGER,
-    cantidadRecompra INTEGER,
+    precioUnitario INTEGER CHECK (precioUnitario >= 0),
+    precioUnidadMedida INTEGER CHECK (precioUnidadMedida >= 0),
+    nivelDeReorden INTEGER CHECK (nivelDeReorden > 0) ,
+    cantidadRecompra INTEGER CHECK (cantidadRecompra > 0),
     CONSTRAINT productoofrecidosucursal_pk PRIMARY KEY(idSucursal, codigoBarras)
 );
 
@@ -41,11 +41,11 @@ CREATE TABLE Estante
     id INTEGER NOT NULL,
     idSucursal INTEGER NOT NULL,   
     idCategoria INTEGER NOT NULL,
-    volumenActual NUMBER NOT NULL,
-    volumenMaximo NUMBER NOT NULL,
-    pesoActual NUMBER NOT NULL,
-    pesoMaximo NUMBER NOT NULL,
-    nivelDeAbastecimiento INTEGER NOT NULL,
+    volumenActual NUMBER NOT NULL CHECK (volumenActual > 0),
+    volumenMaximo NUMBER NOT NULL CHECK (volumenMaximo > 0),
+    pesoActual NUMBER NOT NULL CHECK (pesoActual > 0),
+    pesoMaximo NUMBER NOT NULL CHECK (pesoMaximo > 0),
+    nivelDeAbastecimiento INTEGER NOT NULL CHECK (nivelDeAbastecimiento > 0),
     CONSTRAINT estante_pk PRIMARY KEY(idSucursal, id)
 );
 
@@ -54,7 +54,7 @@ CREATE TABLE ProductosEstante
     idEstante INTEGER NOT NULL,
     idSucursal INTEGER NOT NULL,
     codigoBarras VARCHAR(80) NOT NULL,
-    cantidadProducto INTEGER NOT NULL,
+    cantidadProducto INTEGER NOT NULL CHECK (cantidadProducto >= 0),
     CONSTRAINT productosestante_pk PRIMARY KEY (idEstante, idSucursal, codigoBarras)
 );
 
@@ -62,11 +62,11 @@ CREATE TABLE Bodega
 (    
     id INTEGER NOT NULL,
     idSucursal INTEGER NOT NULL,
-    idCategoria INTEGER NOT NULL,
-    volumenActual NUMBER NOT NULL,
-    volumenMaximo NUMBER NOT NULL,
-    pesoActual NUMBER NOT NULL,
-    pesoMaximo NUMBER NOT NULL,
+    idCategoria INTEGER,
+    volumenActual NUMBER NOT NULL CHECK (volumenActual > 0),
+    volumenMaximo NUMBER NOT NULL CHECK (volumenMaximo > 0),
+    pesoActual NUMBER NOT NULL CHECK (pesoActual > 0),
+    pesoMaximo NUMBER NOT NULL CHECK (pesoMaximo > 0),
     CONSTRAINT bodega_pk PRIMARY KEY(idSucursal, id)
 );
 
@@ -75,7 +75,7 @@ CREATE TABLE ProductosBodega
     idBodega INTEGER NOT NULL,
     idSucursal INTEGER NOT NULL,
     codigoBarras VARCHAR(80) NOT NULL,
-    cantidadProducto INTEGER NOT NULL,
+    cantidadProducto INTEGER NOT NULL CHECK (cantidadProducto >= 0),
     CONSTRAINT productosbodega_pk PRIMARY KEY (idBodega, idSucursal, codigoBarras)
 );
 
@@ -90,10 +90,10 @@ CREATE TABLE Pedido
 (
     codigoPedido INTEGER NOT NULL,
     fechaEntrega DATE NOT NULL,
-    precioTotal INTEGER,
-    estadoOrden VARCHAR(80),
-    NitProveedor VARCHAR(80),
-    idSucursal NUMBER,
+    precioTotal INTEGER NOT NULL CHECK (precioTotal >= 0),
+    estadoOrden VARCHAR(80) NOT NULL CHECK (estadoOrden LIKE 'En progreso' OR estadoOrden LIKE 'Finalizado'),
+    NitProveedor VARCHAR(80) NOT NULL,
+    idSucursal INTEGER NOT NULL,
     CONSTRAINT pedido_pk PRIMARY KEY(codigoPedido)
 );
 
@@ -101,8 +101,8 @@ CREATE TABLE ProductoPedido
 (
     codigoProducto VARCHAR(80) NOT NULL,
     codigoPedido INTEGER NOT NULL,
-    volumen INTEGER,
-    precio INTEGER,
+    volumen INTEGER CHECK (volumen > 0),
+    precio INTEGER CHECK (precio > 0),
     CONSTRAINT productopedido_pk PRIMARY KEY(codigoProducto, codigoPedido)
 );
 
@@ -117,17 +117,17 @@ CREATE TABLE ProveedorProducto
 (
     NitProveedor VARCHAR(80) NOT NULL,
     codigoProducto VARCHAR(80) NOT NULL,
-    precio INTEGER,
-    calificacionCalidad VARCHAR(80),
+    precio INTEGER CHECK ( precio >= 0 ),
+    calificacionCalidad VARCHAR(80) CHECK (calificacionCalidad >= 0 AND calificacionCalidad <= 5),
     CONSTRAINT proveedorproducto_pk PRIMARY KEY(NitProveedor, codigoProducto)
 );
 
 CREATE TABLE LlegadaPedido
 (
     codigoPedido INTEGER NOT NULL,
-    idsucursal INTEGER,
-    fechaEntrega DATE,
-    cantidadProductos INTEGER,
+    idsucursal INTEGER NOT NULL,
+    fechaEntrega DATE NOT NULL,
+    cantidadProductos INTEGER CHECK (cantidadProductos > 0),
     calidadProductos VARCHAR(80),
     calificacion VARCHAR(80),
     CONSTRAINT llegadapedido_pk PRIMARY KEY(codigoPedido)
@@ -137,16 +137,16 @@ CREATE TABLE Cliente
 (
     tipoDocumento VARCHAR(80) NOT NULL,
     numDocumento VARCHAR(80) NOT NULL,
-    nombre VARCHAR(80),
-    correo VARCHAR(80),
+    nombre VARCHAR(80) NOT NULL,
+    correo VARCHAR(80) NOT NULL,
     CONSTRAINT cliente_pk PRIMARY KEY(tipoDocumento, numDocumento)
 );
 
 CREATE TABLE PersonaJuridica
 (
-    tipoDocumento VARCHAR(80) NOT NULL,
+    tipoDocumento VARCHAR(80) NOT NULL CHECK (tipoDocumento IN ('NIT')),
     numDocumento VARCHAR(80) NOT NULL,
-    direccion VARCHAR(80),
+    direccion VARCHAR(80) NOT NULL,
     CONSTRAINT personajuridica_pk PRIMARY KEY(tipoDocumento, numDocumento)
 );
 
@@ -156,8 +156,8 @@ CREATE TABLE Venta
     tipoDocCliente VARCHAR(80) NOT NULL,
     numDocCliente VARCHAR(80) NOT NULL,
     idSucursal INTEGER NOT NULL,
-    fechaVenta DATE,
-    totalVenta INTEGER,    
+    fechaVenta DATE NOT NULL,
+    totalVenta INTEGER CHECK (totalVenta > 0),    
     CONSTRAINT venta_pk PRIMARY KEY(numeroVenta)
 );
 
@@ -165,23 +165,25 @@ CREATE TABLE VentaProducto
 (
     numeroVenta INTEGER NOT NULL,
     codigoProducto VARCHAR(80) NOT NULL,
-    unidades INTEGER,
+    unidades INTEGER CHECK (unidades > 0),
     CONSTRAINT ventaproducto_pk PRIMARY KEY(numeroVenta, codigoProducto)
 );
 
 CREATE TABLE Promocion
 (
     codigoPromocion VARCHAR(80) NOT NULL,
-    tipoPromocion INTEGER,
-    fechaTerminacion DATE,
+    tipoPromocion INTEGER NOT NULL,
+    fechaTerminacion DATE NOT NULL,
     CONSTRAINT promocion_pk PRIMARY KEY(codigoPromocion)
 );
+
+
 
 CREATE TABLE VentaPromocion
 (
     numeroVenta INTEGER NOT NULL,
     codigoPromo VARCHAR(80) NOT NULL,
-    unidades INTEGER,
+    unidades INTEGER CHECK (unidades > 0),
     CONSTRAINT ventapromocion_pk PRIMARY KEY(numeroVenta, codigoPromo)
 );
 
@@ -196,37 +198,37 @@ CREATE TABLE PagueNUnidadesLleveMPromo
 (
     codigoPromo VARCHAR(80) NOT NULL,
     compraUnidades INTEGER NOT NULL,
-    llevaUnidades INTEGER,
+    llevaUnidades INTEGER NOT NULL CHECK (llevaUnidades > 0),
     CONSTRAINT paguenunidadesllevempromo_pk PRIMARY KEY(codigoPromo)
 );
 
 
 CREATE TABLE PaqueteDeProductosPromo
 (
-	codigoPromo VARCHAR(80) NOT NULL,
-	precioPromo INTEGER NOT NULL,
-	CONSTRAINT paquetedeproductospromo_pk PRIMARY KEY (codigoPromo)
+    codigoPromo VARCHAR(80) NOT NULL,
+    precioPromo INTEGER NOT NULL CHECK (precioPromo >= 0),
+    CONSTRAINT paquetedeproductospromo_pk PRIMARY KEY (codigoPromo)
 );
 
 CREATE TABLE PagueXCantidadLleveYPromo
 (
     codigoPromo VARCHAR(80) NOT NULL,
-    cantidadPaga INTEGER NOT NULL,
-    cantidadLleva INTEGER,
+    cantidadPaga INTEGER NOT NULL CHECK (cantidadPaga >= 0),
+    cantidadLleva INTEGER NOT NULL,
     CONSTRAINT paguexcantidadlleveypromo_pk PRIMARY KEY(codigoPromo)
 );
 
 CREATE TABLE DescPorcentajePromo
 (
     codigoPromo VARCHAR(80) NOT NULL,
-    porcentajeDesc INTEGER,
+    porcentajeDesc INTEGER CHECK ( porcentajeDesc > 0),
     CONSTRAINT descporcentajepromo_pk PRIMARY KEY(codigoPromo)
 );
 
 CREATE TABLE Pague1Lleve2ConDescPromo
 (
     codigoPromo VARCHAR(80) NOT NULL,
-    porcentajeDesc INTEGER,
+    porcentajeDesc INTEGER CHECK ( porcentajeDesc > 0),
     CONSTRAINT pague1lleve2condescpromo_pk PRIMARY KEY(codigoPromo)
 );
 
@@ -234,8 +236,8 @@ CREATE TABLE Pague1Lleve2ConDescPromo
 -- Crear llaves foraneas
 
 ALTER TABLE PaqueteDeProductosPromo
-	ADD FOREIGN KEY (codigoPromo)
-	REFERENCES Producto(codigoDeBarras)
+    ADD FOREIGN KEY (codigoPromo)
+    REFERENCES Producto(codigoDeBarras)
 ;
 
 ALTER TABLE Bodega
@@ -295,6 +297,11 @@ ALTER TABLE PagueXCantidadLleveYPromo
     REFERENCES Promocion(codigoPromocion)
     ON DELETE CASCADE
 ;    
+
+ALTER TABLE PagueXCantidadLleveYPromo
+    ADD CHECK (cantidadLleva > cantidadPaga)
+;
+
 ALTER TABLE ProductoPromocion
     ADD    FOREIGN KEY (codigoPromocion)
     REFERENCES Promocion(codigoPromocion)
@@ -347,10 +354,18 @@ ALTER TABLE Estante
     ADD    FOREIGN KEY (idSucursal)
     REFERENCES Sucursal(idSucursal)
 ;
+
+ALTER TABLE Estante
+    ADD CHECK (pesoActual <= pesoMaximo AND volumenActual <= volumenMaximo)
+;
     
 ALTER TABLE Bodega
     ADD    FOREIGN KEY (idSucursal)
     REFERENCES Sucursal(idSucursal)
+;
+
+ALTER TABLE Bodega
+    ADD CHECK (pesoActual <= pesoMaximo AND volumenActual <= volumenMaximo)
 ;
     
 ALTER TABLE LlegadaPedido
@@ -402,9 +417,55 @@ ALTER TABLE ProductosEstante
     REFERENCES ProductoOfrecidoSucursal (idSucursal , codigoBarras)
 ;
 
--- Restricciones 
+--Gatillos, Revisan que no se creen fechas anteriores a la actual.
+CREATE OR REPLACE TRIGGER check_dates_pedido
+  BEFORE INSERT OR UPDATE ON Pedido
+  FOR EACH ROW
+BEGIN
+  IF( :new.fechaEntrega <= sysdate - 1)
+  THEN
+    RAISE_APPLICATION_ERROR( -20001, 
+          'Fecha Invalidad: La fecha debe ser mayor o igual a la actual - ingresado = ' || 
+          to_char( :new.fechaEntrega, 'dd/mm/yyyy HH24:MI:SS' ) );
+  END IF; 
+END;
+/
 
-ALTER TABLE PersonaJuridica
-    ADD CONSTRAINT SOLO_NIT_PERSONAS_JURIDICAS
-    CHECK (tipoDocumento IN ('NIT'))
-;
+CREATE OR REPLACE TRIGGER check_dates_promocion
+  BEFORE INSERT OR UPDATE ON Promocion
+  FOR EACH ROW
+BEGIN
+  IF( :new.fechaTerminacion <= sysdate - 1)
+  THEN
+    RAISE_APPLICATION_ERROR( -20001, 
+          'Fecha Invalidad: La fecha debe ser mayor o igual a la actual - ingresado = ' || 
+          to_char( :new.fechaTerminacion, 'dd/mm/yyyy HH24:MI:SS' ) );
+  END IF; 
+END;
+/
+
+CREATE OR REPLACE TRIGGER check_dates_venta
+  BEFORE INSERT OR UPDATE ON Venta
+  FOR EACH ROW
+BEGIN
+  IF( :new.fechaVenta <= sysdate - 1)
+  THEN
+    RAISE_APPLICATION_ERROR( -20001, 
+          'Fecha Invalidad: La fecha debe ser mayor o igual a la actual - ingresado = ' || 
+          to_char( :new.fechaVenta, 'dd/mm/yyyy HH24:MI:SS' ) );
+  END IF; 
+END;
+/
+
+CREATE OR REPLACE TRIGGER check_dates_llegada_pedido
+  BEFORE INSERT OR UPDATE ON LlegadaPedido
+  FOR EACH ROW
+BEGIN
+  IF( :new.fechaEntrega <= sysdate - 1)
+  THEN
+    RAISE_APPLICATION_ERROR( -20001, 
+          'Fecha Invalidad: La fecha debe ser mayor o igual a la actual - ingresado = ' || 
+          to_char( :new.fechaEntrega, 'dd/mm/yyyy HH24:MI:SS' ) );
+  END IF; 
+END;
+/
