@@ -1,5 +1,6 @@
 package uniandes.isis2304.b07.superandes.negocio;
 
-public class VentaProducto {
-
+public class VentaProducto 
+{
+	//TODO 
 }

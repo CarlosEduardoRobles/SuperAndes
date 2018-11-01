@@ -63,4 +63,23 @@ public class SQLProductosBodega
 		q.setParameters(idBodega, idSucursal, codigoBarras);
 		return (long) q.executeUnique();
 	}
+	
+	/**
+	 * Metodo para agregar X unidades de un producto de una Bodega.
+	 * @param pm - PersistenceManager, Maneja la persistencia
+	 * @param idBodega - Id de la bodega a la que se le agregara el producto.
+	 * @param idSucursal - Id de la sucursal a la que se le agregara el producto de su bodega.
+	 * @param codigoBarras - Producto al que se aumentara su cantidad en la bodega.
+	 * @param cantidadAgregada - La cantidad de productos que seran agregados.
+	 * @return long.
+	 */
+	public long añadirProductosBodega(PersistenceManager pm, long idBodega, long idSucursal, String codigoBarras,
+			Integer cantidadAgregada) 
+	{		
+		Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaProductosBodega() + " SET cantidadproducto = cantidadproducto + " + cantidadAgregada + " WHERE idBodega = ? AND "
+				+ "idSucursal = ? AND codigoBarras = ?");
+		q.setParameters(idBodega, idSucursal, codigoBarras);
+		return (long) q.executeUnique();
+	}
+
 }

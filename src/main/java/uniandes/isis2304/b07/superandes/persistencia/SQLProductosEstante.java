@@ -59,4 +59,22 @@ public class SQLProductosEstante
 		q.setParameters(idEstante, idSucursal, codigoBarras);
 		return (long) q.executeUnique();
 	}
+	
+	/**
+	 * Metodo para agregar X unidades de un producto de un estante.
+	 * @param pm - PersistenceManager, Maneja la persistencia
+	 * @param idEstante - Id del estante al que se le agregara el producto.
+	 * @param idSucursal - Id de la sucursal a la que se le agregara el producto de su bodega.
+	 * @param codigoBarras - Producto al que se aumentara su cantidad en la bodega.
+	 * @param cantidadAgregada - La cantidad de productos que seran agregados.
+	 * @return long.
+	 */
+	public long añadirProductosEstante(PersistenceManager pm, long idEstante, long idSucursal, String codigoBarras,
+			Integer cantidadAgregada) 
+	{		
+		Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaProductosEstante() + " SET cantidadproducto = cantidadproducto + " + cantidadAgregada + " WHERE idEstante = ? AND "
+				+ "idSucursal = ? AND codigoBarras = ?");
+		q.setParameters(idEstante, idSucursal, codigoBarras);
+		return (long) q.executeUnique();
+	}
 }
