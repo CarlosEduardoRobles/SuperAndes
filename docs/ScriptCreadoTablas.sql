@@ -238,6 +238,7 @@ CREATE TABLE Pague1Lleve2ConDescPromo
 ALTER TABLE PaqueteDeProductosPromo
     ADD FOREIGN KEY (codigoPromo)
     REFERENCES Producto(codigoDeBarras)
+    ON DELETE CASCADE
 ;
 
 ALTER TABLE Bodega
@@ -252,21 +253,25 @@ ALTER TABLE Estante
 ALTER TABLE Pedido 
     ADD FOREIGN KEY  (idSucursal)
     REFERENCES Sucursal(idSucursal)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE VentaProducto
     ADD    FOREIGN KEY (numeroVenta)
     REFERENCES Venta(numeroVenta)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE VentaPromocion
     ADD    FOREIGN KEY (numeroVenta)
     REFERENCES Venta(numeroVenta)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE PersonaJuridica
     ADD    FOREIGN KEY (tipoDocumento, numDocumento)
     REFERENCES Cliente(tipoDocumento, numDocumento)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE PagueNUnidadesLleveMPromo
@@ -277,7 +282,8 @@ ALTER TABLE PagueNUnidadesLleveMPromo
     
 ALTER TABLE VentaPromocion
     ADD    FOREIGN KEY (codigoPromo)
-    REFERENCES Promocion(codigoPromocion)
+    REFERENCES Promocion(codigoPromocion
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE DescPorcentajePromo
@@ -316,43 +322,51 @@ ALTER TABLE VentaProducto
 ALTER TABLE ProveedorProducto
     ADD    FOREIGN KEY (codigoProducto)
     REFERENCES Producto(codigoDeBarras)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE ProveedorProducto
     ADD    FOREIGN KEY (NitProveedor)
     REFERENCES Proveedor(NIT)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE Pedido
     ADD    FOREIGN KEY (NitProveedor)
     REFERENCES Proveedor(NIT)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE ProductoPromocion
     ADD    FOREIGN KEY (codigoProducto)
     REFERENCES Producto(codigoDeBarras)
+    ON DELETE CASCADE
 ;
     
     
 ALTER TABLE ProductoOfrecidoSucursal
     ADD    FOREIGN KEY (codigoBarras)
     REFERENCES Producto(codigoDeBarras)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE ProductoPedido
     ADD    FOREIGN KEY (codigoProducto)
     REFERENCES Producto(codigoDeBarras)
+    ON DELETE CASCADE
 ;
     
     
 ALTER TABLE ProductoOfrecidoSucursal
     ADD    FOREIGN KEY (idSucursal)
     REFERENCES Sucursal(idSucursal)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE Estante
     ADD    FOREIGN KEY (idSucursal)
     REFERENCES Sucursal(idSucursal)
+    ON DELETE CASCADE
 ;
 
 ALTER TABLE Estante
@@ -362,6 +376,7 @@ ALTER TABLE Estante
 ALTER TABLE Bodega
     ADD    FOREIGN KEY (idSucursal)
     REFERENCES Sucursal(idSucursal)
+    ON DELETE CASCADE
 ;
 
 ALTER TABLE Bodega
@@ -376,6 +391,7 @@ ALTER TABLE LlegadaPedido
 ALTER TABLE ProductoPedido
     ADD    FOREIGN KEY (codigoPedido)
     REFERENCES Pedido(codigoPedido)
+    ON DELETE CASCADE
 ;
     
 ALTER TABLE LlegadaPedido
@@ -392,29 +408,35 @@ ALTER TABLE Venta
     ADD    FOREIGN KEY (idSucursal)
     REFERENCES Sucursal(idSucursal)
 ;        
+
 ALTER TABLE Producto
     ADD FOREIGN KEY (idCategoria)
     REFERENCES Categoria(idCategoria)
+    ON DELETE CASCADE
 ;
 
 ALTER TABLE ProductosBodega
     ADD FOREIGN KEY (idSucursal, idBodega)
     REFERENCES Bodega (idSucursal, id)
+    ON DELETE CASCADE
 ;
 
 ALTER TABLE ProductosBodega
     ADD FOREIGN KEY (idSucursal , codigoBarras)
     REFERENCES ProductoOfrecidoSucursal (idSucursal , codigoBarras)
+    ON DELETE CASCADE
 ;
 
 ALTER TABLE ProductosEstante
     ADD FOREIGN KEY (idSucursal, idEstante)
-    REFERENCES Estante (idSucursal, id)   
+    REFERENCES Estante (idSucursal, id)  
+    ON DELETE CASCADE 
 ;
 
 ALTER TABLE ProductosEstante
  ADD FOREIGN KEY (idSucursal , codigoBarras)
     REFERENCES ProductoOfrecidoSucursal (idSucursal , codigoBarras)
+    ON DELETE CASCADE
 ;
 
 --Gatillos, Revisan que no se creen fechas anteriores a la actual.
